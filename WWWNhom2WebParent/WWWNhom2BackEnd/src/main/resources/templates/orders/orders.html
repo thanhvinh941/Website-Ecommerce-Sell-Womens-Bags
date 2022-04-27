@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head
+	th:replace="fragments :: page_head('Orders - Shopme Admin', 'none')" />
+<body>
+	<div class="layout-wrapper layout-content-navbar">
+		<div class="layout-container">
+			<aside th:replace="fragments :: layout-menu('Orders')"></aside>
+			<div class="layout-page">
+				<nav th:replace="fragments :: layout-navbar"></nav>
+				<div class="content-wrapper">
+					<div class="container-xxl flex-grow-1 container-p-y">
+						<div class="container-fluid">
+							<h3>Manage Orders</h3>
+							<div class="d-flex justify-content-between">
+								<div th:replace="fragments :: search_form('/orders/page/1')"></div>
+								<div>
+									<a th:href="@{/orders/export/csv}"><i
+										class="text-secondary fas fa-file-csv fa-2x m-2"></i></a>
+								</div>
+							</div>
+							<div th:if="${message != null}"
+								class="alert alert-success text-center">[[${message}]]</div>
+
+
+							<div class="card my-4">
+								<div class="table-responsive text-nowrap">
+									<table class="table table-hover">
+										<thead class="thead-dark">
+											<tr>
+												<th class="align-middle text-center"><a
+													th:href="@{'/orders/page/'+${currentPage}+ '?sortField=id&sortDir=' + ${reverseSortDir}}"
+													class="text-white">ID</a> <span
+													th:if="${sortField == 'id'}"
+													th:class="${reverseSortDir == 'desc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}"></span>
+												</th>
+												<th><a
+													th:href="@{'/orders/page/'+${currentPage}+ '?sortField=customer.lastname&sortDir=' + ${reverseSortDir}}"
+													class="text-white">Customer Name</a> <span
+													th:if="${sortField == 'customer.lastname'}"
+													th:class="${reverseSortDir == 'desc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}"></span>
+												</th>
+												<th>Order Detail</th>
+												<th></th>
+											</tr>
+										</thead>
+										<tbody class="table-border-bottom-0">
+											<tr th:each="l : ${list}">
+												<td class="text-center align-middle" style="width: 75px">[[${l.getId}]]</td>
+												<td class="align-middle text-center" style="width: 170px">
+													<ul
+														class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
+														<li data-bs-toggle="tooltip" data-popup="tooltip-custom"
+															data-bs-placement="top" class="avatar avatar-xs pull-up"
+															title="" data-bs-original-title="Lilian Fuller"><span
+															th:if="${l.customer.photos == null}"
+															class="fas fa-portrait fa-3x icon-dark"></span> <img
+															th:if="${l.customer.photos != null}"
+															th:src="@{${l.customer.getPhotosImagesPath}}"
+															class="rounded-circle" /></li>
+														<li>[[${l.customer.fullName}]]</li>
+													</ul>
+												</td>
+												<td class="align-middle"
+													style="max-width: 600px; height: 100px; margin: auto; align-content: flex-start; display: flex; flex-wrap: wrap;">
+													<th:block th:each="ord : ${l.listOrderDetail}">
+														<span class="badge badge-secondary m-1"> <span
+															th:text="${ord.product.name}"></span> <span
+															th:text="${ord.quantity}"></span> <span
+															th:text="${ord.product.discountPrice}"></span>
+														</span>
+													</th:block>
+												</td>
+												<td class="text-center align-middle"><a
+													class="fas fa-file-alt fa-2x icon-green link-detail"
+													th:href="@{'/orders/detail/' + ${l.getId}}"
+													title="Detail order"></a></td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+							<div th:replace="fragments :: pagination('/orders','Orders')"></div>
+						</div>
+					</div>
+					<footer th:replace="fragments :: content-footer"></footer>
+					<div class="content-backdrop fade"></div>
+				</div>
+			</div>
+		</div>
+		<div class="layout-overlay layout-menu-toggle"></div>
+	</div>
+	<script type="text/javascript" th:src="@{/js/common_list.js}"></script>
+</body>
+</html>

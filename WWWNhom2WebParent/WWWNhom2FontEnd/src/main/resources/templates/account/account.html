@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeLeaf-extras-springsecurity5">
+<head th:replace="fragments :: page_head('Thông tin tài khoản', 'none')" />
+<body>
+	<div th:replace="fragments :: navbarNoCategory"></div>
+	<aside th:replace="fragments :: accountStyledSideBar">	
+	</aside>
+
+	<div th:replace="fragments :: footer"></div>
+	<div th:replace="fragments :: script"></div>
+</body>
+</html>

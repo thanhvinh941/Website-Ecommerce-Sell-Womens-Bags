@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeLeaf-extras-springsecurity5">
+<head th:replace="fragments :: page_head('Chỉnh sửa địa chỉ', 'none')" />
+<body>
+	<div th:replace="fragments :: navbarNoCategory"></div>
+	<div class="breadcrumbs"
+		th:replace="fragments :: breadcrumbs('Chỉnh sửa địa chỉ','/customer/address/edit/' + ${addressId})">
+	</div>
+	<div class="d-flex">
+		<aside th:replace="fragments :: accountStyledSideBar"></aside>
+		<section style="flex: 1; margin-right: 10px;">
+			<div>Chỉnh sửa địa chỉ</div>
+			<div>
+				<form th:action="@{/customer/address/save}" method="post"
+					th:object="${address}">
+					<input type="hidden" th:field="*{id}">
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label">Tỉnh/Thành
+							Phố:</label>
+						<div class="col-sm-10">
+							<select class="form-control"
+								th:field="*{tinhThanhPho}" required>
+								<th:block th:each="tinhThanhPho : ${tinhThanhPhos}">
+									<option th:value="${tinhThanhPho.matp}">[[${tinhThanhPho.name}]]</option>
+								</th:block>
+							</select>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label">Quận Huyện:</label>
+						<div class="col-sm-10">
+							<select class="form-control" th:field="*{quanHuyen}" required>
+								<th:block th:each="quanHuyen : ${quanHuyens}">
+									<option th:value="${quanHuyen.maqh}">[[${quanHuyen.name}]]</option>
+								</th:block>
+							</select>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label">Phường xã:</label>
+						<div class="col-sm-10">
+							<select class="form-control" th:field="*{xaPhuongThiTran}" required>
+								<th:block th:each="xaPhuongThiTran : ${xaPhuongThiTrans}">
+									<option th:value="${xaPhuongThiTran.xaid}">[[${xaPhuongThiTran.name}]]</option>
+								</th:block>
+							</select>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label">Đại chỉ:</label>
+						<div class="col-sm-10">
+							<textarea class="form-control" rows="5" cols="10"
+								th:field="*{addressline}"></textarea>
+						</div>
+					</div>
+					<div class="form-group row" th:if="${!address.enabled}">
+						<div class="col-sm-10">
+							<input type="checkbox" th:field="*{enabled}" name="enabled">Đặt làm địa chỉ mặc định
+						</div>
+					</div>
+					<div class="form-group row" th:if="${address.enabled}">
+						<div class="col-sm-10">
+							<input type="checkbox" hidden="true" th:field="*{enabled}" name="enabled" value="Đặt làm địa chỉ mặc định">
+						</div>
+					</div>
+					<div class="form-group row">
+						<div class="col-sm-10">
+							<input type="submit" value="Lưu địa chỉ">
+						</div>
+					</div>
+				</form>
+			</div>
+		</section>
+	</div>
+	<div th:replace="fragments :: footer"></div>
+	<div th:replace="fragments :: script"></div>
+	<script type="text/javascript">
+		addressURL="[[@{/address}]]";
+		dropdownTinhThanhPhos = $("#tinhThanhPho");
+		dropdownQuanHuyens = $("#quanHuyen");
+		dropdownXaPhuongs = $("#xaPhuongThiTran");
+		$(document).ready(function(){
+			dropdownTinhThanhPhos.change(function(){
+				dropdownQuanHuyens.empty();
+				getQuanHuyens();
+			});
+			dropdownQuanHuyens.change(function(){
+				dropdownXaPhuongs.empty();
+				getXaPhuongs();
+			});
+			getCategoriesForNewForm(
+				
+			);
+		});
+		function getCategoriesForNewForm(){
+			catIdField = $("#categoryId");
+			editMode = false;
+			if(catIdField.length){
+				editMode = true;
+			}
+			
+			if(!editMode){
+				getQuanHuyens();
+			}
+		};
+		
+		function getQuanHuyens(){
+			tinhThanhPhoId = dropdownTinhThanhPhos.val();
+			url = addressURL + "/tinh-tp/" + tinhThanhPhoId;
+			
+			$.get(url,function(responseJson){
+				$.each(responseJson,function(index, quanHuyen){
+					$("<option>").val(quanHuyen.maqh).text(quanHuyen.name).appendTo(dropdownQuanHuyens);
+				});
+			});
+		}
+		
+		function getXaPhuongs(){
+			quanHuyenId = dropdownQuanHuyens.val();
+			url = addressURL + "/quan-huyen/" + quanHuyenId;
+			
+			$.get(url,function(responseJson){
+				$.each(responseJson,function(index, xaPhuong){
+					$("<option>").val(xaPhuong.xaid).text(xaPhuong.name).appendTo(dropdownXaPhuongs);
+				});
+			});
+		}
+	</script>
+</body>
+</html>

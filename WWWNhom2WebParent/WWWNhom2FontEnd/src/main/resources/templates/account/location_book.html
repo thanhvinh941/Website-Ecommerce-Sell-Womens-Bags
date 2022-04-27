@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeLeaf-extras-springsecurity5">
+<head th:replace="fragments :: page_head('Sổ địa chỉ', 'none')" />
+<body>
+	<div th:replace="fragments :: navbarNoCategory"></div>
+	<div class="breadcrumbs"
+		th:replace="fragments :: breadcrumbs('Sổ địa chỉ','/customer/address')">
+	</div>
+	<div class="d-flex my-4">
+		<aside th:replace="fragments :: accountStyledSideBar"></aside>
+		<section style="flex: 1; margin-right: 10px;">
+			<div class="h4">Sổ địa chỉ</div>
+			<div class="w-100 p-3 text-center" style="background: #EAEAEA;border-radius:  10px; "><a class="h4 text-primary" th:href="@{/customer/address/new}"><i class="fa fa-plus" aria-hidden="true"></i> Thêm 1 địa chỉ mới</a></div>
+			<th:block th:each="address : ${listAddresses}">
+				<div class="p-3 my-2 w-100 d-flex justify-content-between" style="background: #F2F2F2;border-radius:  10px; ">
+					<div class="info">
+						<div>[[${address.customer.fullName}]]
+							<th:block th:if="${address.enabled}">	
+								<span class="text-success">								
+								<i class="fa fa-check-circle-o" aria-hidden="true"></i> Địa chỉ mặc định 
+								</span>				
+							</th:block>
+						</div>
+						<div>Địa chỉ: [[${address.addressline}]]</div>
+						<div>Số điện thoại: [[${address.customer.phoneNumber}]]</div>
+					</div>
+					<th:block th:if="${address.enabled}">					
+						<div class="acction">
+							<a class="text-primary" th:href="@{'/customer/address/edit/' + ${address.id}}">Chỉnh sửa</a> 
+						</div>
+					</th:block>
+					<th:block th:unless="${address.enabled}">					
+						<div class="acction">
+							<a class="text-primary mx-2  px-2 p-1" th:href="@{'/customer/address/edit/' + ${address.id}}">Chỉnh sửa</a> 
+							<a class="rounded text-danger px-2 p-1 border .bg-light" th:href="@{'/customer/address/delete/' + ${address.id}}"><i class="fa fa-times"></i></a>
+						</div>
+					</th:block>
+				</div>
+			</th:block>
+		</section>
+	</div>
+	<div th:replace="fragments :: footer"></div>
+	<div th:replace="fragments :: script"></div>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: page_head('User - Shopme Admin', 'none')" />
+<body>
+	<div class="layout-wrapper layout-content-navbar">
+		<div class="layout-container">
+			<aside th:replace="fragments :: layout-menu('Users')"></aside>
+			<div class="layout-page">
+				<nav th:replace="fragments :: layout-navbar"></nav>
+				<div class="content-wrapper">
+					<div class="container-xxl flex-grow-1 container-p-y">
+						<div class="container-fluid">
+							<h3>Manage Users</h3>
+							<div class="d-flex justify-content-between">
+								<div th:replace="fragments :: search_form('/users/page/1')"></div>
+								<div>
+									<a th:href="@{/users/new}"><i class="text-secondary fas fa-user-plus fa-2x m-2"></i></a>									
+									<a th:href="@{/users/export/csv}"><i class="text-secondary fas fa-file-csv fa-2x m-2"></i></a>
+									<a th:href="@{/users/export/excel}"><i class="text-secondary fas fa-file-excel fa-2x m-2"></i></a>
+									<a th:href="@{/users/export/pdf}"><i class="text-secondary fas fa-file-pdf fa-2x m-2"></i></a>								
+								</div>
+							</div>
+							<div th:if="${message != null}" class="alert alert-success text-center">[[${message}]]</div>
+
+
+							<div class="card my-4">
+								<div class="table-responsive text-nowrap">
+									<table class="table table-hover">
+										<thead class="thead-dark">
+											<tr>
+												<th th:replace="fragments :: column_link('id','Id')"></th>
+												<th>Photos</th>
+												<th width="250px" th:replace="fragments :: column_link('email','Email')"></th>
+												<th th:replace="fragments :: column_link('firstname','First Name')"></th>
+												<th th:replace="fragments :: column_link('lastname','Last Name')"></th>
+												<th>Roles</th>
+												<th
+													th:replace="fragments :: column_link('enabled','Enabled')"></th>
+												<th></th>
+											</tr>
+										</thead>
+										<tbody class="table-border-bottom-0">
+											<tr th:each="user : ${listUsers}">
+											<td class="text-center align-middle">[[${user.id}]]</td>
+											
+											<td>
+												<ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
+													<li data-bs-toggle="tooltip" data-popup="tooltip-custom"
+															data-bs-placement="top" class="avatar avatar-xs pull-up"
+															title="" data-bs-original-title="Lilian Fuller">
+														<span th:if="${user.photos == null}" class="fas fa-portrait fa-4x rounded-circle"></span>
+														<img th:if="${user.photos != null}" th:src="@{${user.getPhotosImagesPath}}" class="rounded-circle" />
+													</li>
+												</ul>
+											</td>
+											<td class="align-middle">
+											<div style="width: 180px;">
+												<span style="display: block;white-space: nowrap; overflow: hidden;text-overflow: ellipsis;">												
+													[[${user.email}]]
+												</span>
+											</div>
+											</td>
+											<td class="align-middle">[[${user.firstname}]]</td>
+											<td class="align-middle">[[${user.lastname}]]</td>
+											<td class="align-middle">[[${user.roles}]]</td>
+											<td class="text-center align-middle"><a
+												th:if="${user.enabled == true}"
+												class="fas fa-check-circle fa-2x icon-green"
+												th:href="@{'/user/' + ${user.id} +'/enabled/false'}"> </a> <a
+												th:if="${user.enabled == false}"
+												class="fas fa-circle fa-2x icon-dark"
+												th:href="@{'/user/' + ${user.id} +'/enabled/true'}"> </a></td>
+											<td class="align-middle"><a
+												class="far fa-edit fa-2x icon-green"
+												th:href="@{'/users/edit/' + ${user.id}}"
+												title="Edit this user"> </a> &nbsp; <a
+												class="fas fa-trash-alt fa-2x icon-dark link-delete"
+												th:href="@{'/user/delete/' + ${user.id}}"
+												title="Delete this user" th:entityId="${user.id}"> </a>
+											</td>
+										</tbody>
+									</table>
+								</div>
+							</div>
+
+							<div th:replace="fragments :: pagination('/users','Users')"></div>
+						</div>
+					</div>
+					<footer th:replace="fragments :: content-footer"></footer>
+					<div class="content-backdrop fade"></div>
+				</div>
+			</div>
+		</div>
+		<div class="layout-overlay layout-menu-toggle"></div>
+	</div>
+
+	<div class="modal fade text-center" id="deleteConfirmModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="modalTitle">Delete Confirmation</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					<span id="confirmText"></span>
+				</div>
+				<div class="modal-footer">
+					<a class="btn btn-success" href="" id="yesBtn">Yes</a>
+					<button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" th:src="@{/js/common_list.js}"></script>
+	<script type="text/javascript">
+	moduleURL = "[[@{/users}]]";
+	$(document).ready(function(){
+		$(".link-delete").on("click",function(e){
+			e.preventDefault();
+			showDeleteConfirModal($(this), 'user');
+		});	 
+	});
+</script>
+</body>
+</html>

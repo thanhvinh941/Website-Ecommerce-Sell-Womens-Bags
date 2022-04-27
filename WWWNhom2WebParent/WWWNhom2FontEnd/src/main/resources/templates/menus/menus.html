@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeLeaf-extras-springsecurity5">
+<body>
+	<div class="topbar" th:fragment="navbar-top">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-4 col-md-12 col-12">
+					<div class="top-left">
+						<ul class="list-main">
+							<li><i class="ti-headphone-alt"></i> +060 (800)
+								801-582&nbsp;&nbsp;&nbsp;&nbsp;<i class="ti-email"></i>
+								support@shophub.com</li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-8 col-md-12 col-12">
+					<div class="right-content">
+						<ul class="list-main">
+							<li><i class="ti-location-pin"></i> Store location</li>
+							<li><i class="ti-alarm-clock"></i> <a href="#">Daily
+									deal</a></li>
+							<li><i class="ti-user"></i> <a th:href="@{/account}">My
+									account</a></li>
+							<th:block sec:authorize="isAuthenticated()">
+								<li><i class="ti-power-off"></i> <a th:href="@{/logout}">Logout</a>
+								</li>
+							</th:block>
+							<th:block sec:authorize="!isAuthenticated()">
+								<li><i class="ti-power-off"></i> <a th:href="@{/login}">Login</a>
+								</li>
+							</th:block>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="middle-inner" th:fragment="navbar-mid">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-2 col-md-2 col-12">
+					<div class="logo">
+						<a th:href="@{/}"> <img style="height: 100px; border-radius: 10px;" th:src="@{/images/logo.png}"
+							alt="logo"></a>
+					</div>
+					<div class="search-top">
+						<div class="top-search">
+							<a href="#0"><i class="ti-search"></i></a>
+						</div>
+						<div class="search-top">
+							<form class="search-form" th:action="@{/shop-grid/page/1}">
+								<input type="text" placeholder="Search here..." name="keyword">
+								<button value="search" type="submit">
+									<i class="ti-search"></i>
+								</button>
+							</form>
+						</div>
+					</div>
+					<div class="mobile-nav"></div>
+				</div>
+				<div class="col-lg-8 col-md-7 col-12 d-flex align-items-center">
+					<div class="search-bar-top">
+						<div class="search-bar">
+							<form th:action="@{/shop-grid/page/1}">
+								<input name="keyword" placeholder="Search Products Here....."
+									type="search">
+								<button class="btnn">
+									<i class="ti-search"></i>
+								</button>
+							</form>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-2 col-md-3 col-12 d-flex align-items-center justify-content-end">
+					<div class="right-bar">
+						<th:block sec:authorize="isAuthenticated()">
+
+							<div class="sinlge-bar info-head">
+								<div class="dropdown">
+									<a href="#"
+										class="p-0 nav-link dropdown dropdown-toggle single-icon"
+										data-toggle="dropdown"> <i class="fa fa-user-circle-o"
+										aria-hidden="true"></i> &nbsp; <span
+										style="font-size: 12px; height: 20px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
+										sec:authentication="principal.fullName"></span>
+									</a>
+									<div class="dropdown-menu">
+										<a style="font-size: 12px;" class="dropdown-item"
+											th:href="@{/customer/account/edit}">Thông tin tài khoản</a> <a
+											style="font-size: 12px;" class="dropdown-item"
+											th:href="@{/sales/order/history}">Quản lý đơn hàng</a> <a
+											style="font-size: 12px;" class="dropdown-item"
+											th:href="@{/customer/address}">Sổ địa chỉ</a> <a
+											style="font-size: 12px;" class="dropdown-item"
+											th:href="@{/logout}">Logout</a>
+									</div>
+								</div>
+							</div>
+						</th:block>
+						<th:block sec:authorize="!isAuthenticated()">
+							<div class="sinlge-bar" style="margin-right: 25px;">
+								<a href="#" class="single-icon"> <i
+									class="fa fa-user-circle-o" aria-hidden="true"></i>
+								</a>
+							</div>
+						</th:block>
+						<div class="sinlge-bar shopping">
+							<a th:href="@{/customers/view-cart}" class="single-icon"><i
+								class="ti-bag"></i> <span id="total-count" class="total-count">0</span></a>
+							<div class="shopping-item">
+								<div id="dropdown-cart-header" class="dropdown-cart-header">
+									<span>0 Items</span> <a th:href="@{/customers/view-cart}">View
+										Cart</a>
+								</div>
+								<ul id="shopping-list" class="shopping-list">
+								</ul>
+								<div class="bottom">
+									<div id="total" class="total">
+										<span>Total</span> <span class="total-amount">$00.00</span>
+									</div>
+									<a th:href="@{/customers/check-out}" class="btn animate">Checkout</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="header-inner" th:fragment="navbar-bot">
+		<div class="container">
+			<div class="cat-nav-head">
+				<div class="row">
+					<div class="col-lg-3">
+						<div class="all-category">
+							<h3 class="cat-heading">
+								<i class="fa fa-bars" aria-hidden="true"></i>CATEGORIES
+							</h3>
+							<ul class="main-category">
+								<th:block th:each="rootCategory : ${listRootCategories}">
+									<li class="main-mega"><a href="#">
+											[[${rootCategory.name}]] <i class="fa fa-angle-right"
+											aria-hidden="true"></i>
+									</a> <th:block th:if="${rootCategory.children.size > 0}">
+											<ul class="mega-menu">
+												<th:block th:each="category : ${rootCategory.children}">
+													<li th:if="${category.enabled == true}" class="single-menu">
+														<a th:href="@{'/c/' + ${category.alias}}"
+														class="title-link">[[${category.name}]]</a> <a
+														th:href="@{'/c/' + ${category.alias}}" class="image">
+															<img th:src="@{${category.getPhotosImagesPath}}" alt="#">
+													</a>
+													</li>
+												</th:block>
+											</ul>
+										</th:block></li>
+								</th:block>
+							</ul>
+						</div>
+					</div>
+					<div class="col-lg-9 col-12">
+						<div class="menu-area">
+							<!-- Main Menu -->
+							<nav class="navbar navbar-expand-lg">
+								<div class="navbar-collapse">
+									<div class="nav-inner">
+										<ul class="nav main-menu menu navbar-nav">
+											<li class="active"><a href="#">Home</a></li>
+											<li><a th:href="@{/shop-grid}">Product</a></li>
+											<li><a href="#">Shop <i class="ti-angle-down"></i> <span
+													class="new">New</span>
+											</a>
+												<ul class="dropdown">
+													<li><a th:href="@{/shop-grid}">Shop Grid</a></li>
+													<li><a th:href="@{/customers/view-cart}">Cart</a></li>
+													<li><a th:href="@{/customers/check-out}">Checkout</a></li>
+												</ul></li>
+											<li><a href="contact.html">Contact Us</a></li>
+										</ul>
+									</div>
+								</div>
+							</nav>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="header-inner" th:fragment="navbar-bot-no-category">
+		<div class="container">
+			<div class="cat-nav-head">
+				<div class="row">
+					<div class="col-lg-9 col-12">
+						<div class="menu-area">
+							<!-- Main Menu -->
+							<nav class="navbar navbar-expand-lg">
+								<div class="navbar-collapse">
+									<div class="nav-inner">
+										<ul class="nav main-menu menu navbar-nav">
+											<li class="active"><a href="#">Home</a></li>
+											<li><a th:href="@{/shop-grid}">Product</a></li>
+											<li><a href="#">Shop <i class="ti-angle-down"></i> <span
+													class="new">New</span>
+											</a>
+												<ul class="dropdown">
+													<li><a th:href="@{/shop-grid}">Shop Grid</a></li>
+													<li><a th:href="@{/customers/view-cart}">Cart</a></li>
+													<li><a th:href="@{/customers/check-out}">Checkout</a></li>
+												</ul></li>
+											<li><a href="contact.html">Contact Us</a></li>
+										</ul>
+									</div>
+								</div>
+							</nav>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: page_head(${pageTitle}, 'none')" />
+<body>
+	<div class="container-fluid m-0 p-0">
+		<div th:replace="fragments :: navbarNoCategory"></div>
+		<div class="breadcrumbs"
+			th:if="${categoryParents != null && !categoryParents.empty}">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<div class="bread-inner m-3">
+							<ul class="bread-list">
+								<li><a th:href="@{/}">Home</a></li>
+								<th:block th:each="parent : ${categoryParents}">
+									<li class="active"><a th:href="@{'/c/' + ${parent.alias}}"><i
+											class="ti-arrow-right"></i>[[${parent.name}]]</a></li>
+								</th:block>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="container">
+				<div class="row text-center m-2">
+					<th:block th:each="cat : ${category.children}">
+						<div style="margin-bottom: 5px;" class="col-2"
+							th:if="${cat.enabled == true}">
+							<a th:href="@{'/c/' + ${cat.alias}}"> <img
+								style="height: 100px; border-radius: 20px; margin-bottom: 5px;"
+								th:src="@{${cat.getPhotosImagesPath}}" height="100"> <br>
+								[[${cat.name}]]
+							</a>
+						</div>
+					</th:block>
+				</div>
+			</div>
+			<section class="product-area shop-sidebar shop section py-4 ">
+				<div class="container border-top">
+					<div class="row">
+						<th:block th:each="product : ${listProducts}">
+							<div class="col-3">
+								<div class="single-product">
+									<div class="product-img">
+										<a th:href="@{'/p/' + ${product.alias}}"> <img
+											class="default-img" th:src="@{${product.getMainImagePath}}"
+											alt="#"> <img class="hover-img"
+											th:src="@{${product.getMainImagePath}}" alt="#"> <span
+											class="price-dec" th:if="${product.discountPercent > 0}">[[${product.discountPercent}]]%
+												Off</span> <span class="new"
+											th:if="${(#dates.createNow().getTime() - product.updatedTime.getTime())<(1000*60*60*24*3)}">New</span>
+										</a>
+										<div class="button-head">
+											<div class="product-action">
+												<a class="link-detail"
+													th:href="@{'/p/detail-modal/' + ${product.id}}"> <i
+													class=" ti-eye"></i> <span>Quick Shop</span>
+												</a> <a title="Wishlist" href="#"> <i class=" ti-heart "></i>
+													<span>Add to Wishlist</span>
+												</a> <a title="Compare" href="#"> <i
+													class="ti-bar-chart-alt"></i> <span>Add to Compare</span>
+												</a>
+											</div>
+											<div class="product-action-2">
+												<a title="Add to cart"
+													th:href="@{'/add-to-cart/' + ${product.id} + '/1' }">Add
+													to cart</a>
+											</div>
+										</div>
+									</div>
+									<div class="product-content">
+										<h3>
+											<a th:href="@{'/p/' + ${product.alias}}">[[${product.name}]]</a>
+										</h3>
+										<div class="product-price"
+											th:if="${product.discountPercent <= 0}">
+											<span>$[[${product.price}]]</span>
+										</div>
+										<div class="product-price"
+											th:if="${product.discountPercent > 0}">
+											<span
+												style="font-size: larger; color: darkred; margin-right: 10px;">$[[${product.getDiscountPrice}]]</span>
+											<del>
+												<span>$[[${product.price}]]</span>
+											</del>
+										</div>
+									</div>
+								</div>
+							</div>
+						</th:block>
+					</div>
+					<div class="row">
+						<div class="col-12">
+							<div
+								th:replace="fragments :: pagination('/c/' + ${category.alias},'Product')"></div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+		</div>
+	</div>
+	<div class="modal fade text-center" id="detailModal">
+		<div class="modal-dialog modal-xl">
+			<div class="modal-content text-left"
+				style="border-radius: 0 20px 20px 0;"></div>
+		</div>
+	</div>
+
+	<div th:replace="fragments :: footer"></div>
+	<div th:replace="fragments :: script"></div>
+	<script type="text/javascript">
+	$(document).ready(function(){	 
+		$(".link-detail").on("click", function(e){
+			e.preventDefault();
+			linkDetailURL = $(this).attr("href");
+			$("#detailModal").modal("show").find(".modal-content").load(linkDetailURL);
+		});
+	});
+	</script>
+</body>
+</html>

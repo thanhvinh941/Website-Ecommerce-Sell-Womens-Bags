@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeLeaf-extras-springsecurity5">
+<head th:fragment="page_head(title,remove)" th:remove="${remove}">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0">
+	<title>[[${title}]]</title>
+	<link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+	<link rel="stylesheet" th:href="@{/fontawesome/all.css}" />
+	<link rel="stylesheet" th:href="@{/style.css}" />
+	<link rel="stylesheet" th:href="@{/vendor/fonts/boxicons.css}" />
+	<link rel="stylesheet" th:href="@{/vendor/css/core.css}"/>
+	<link rel="stylesheet" th:href="@{/vendor/css/theme-default.css}"/>
+	<link rel="stylesheet" th:href="@{/css/demo.css}" />
+	<link rel="stylesheet" th:href="@{/vendor/libs/perfect-scrollbar/perfect-scrollbar.css}" />
+	<link rel="stylesheet" th:href="@{/vendor/libs/apex-charts/apex-charts.css}" />
+	<script th:src="@{/vendor/js/helpers.js}"></script>
+	<script th:src="@{/webjars/js/config.js}"></script>
+	<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+	<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/common.js}"></script>
+</head>
+<body>
+	<aside th:fragment="layout-menu(menuSelect)" id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+		<div class="app-brand demo" style="height: auto;">
+			<img class="rounded" th:src="@{/images/019 ShopmeAdminSmall.png}"> 
+			<a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
+				<i class="bx bx-chevron-left bx-sm align-middle"></i>
+			</a>
+		</div>
+		<ul class="menu-inner py-1">
+			<li class="menu-item" th:classappend="${menuSelect != 'Dash'} ? '' : active">
+				<a th:href="@{/}" class="menu-link"> 
+					<i class="menu-icon tf-icons bx bx-home-circle"></i> Dash Board
+				</a>
+			</li>
+			<th:block sec:authorize="hasAuthority('Admin')">
+				<li class="menu-item" th:classappend="${menuSelect != 'Users'} ? '' : active">
+					<a th:href="@{/users}" class="menu-link">
+						<i class="menu-icon fas fa-user-circle"></i> Users
+					</a>
+				</li>
+			</th:block>
+			<th:block sec:authorize="hasAnyAuthority('Admin','Editor')">
+				<li class="menu-item" th:classappend="${menuSelect != 'Categories'} ? '' : active">
+					<a th:href="@{/categories}" class="menu-link"> 
+						<i class="menu-icon far fa-list-alt"></i> Categories
+					</a>
+				</li>
+				<li class="menu-item" th:classappend="${menuSelect != 'Brands'} ? '' : active">
+					<a th:href="@{/brands}" class="menu-link">
+						<i class="menu-icon far fa-bookmark"></i> Brands
+					</a>
+				</li>
+			</th:block>
+			<th:block sec:authorize="hasAnyAuthority('Admin','Salesperson','Editor','Shipper')">
+				<li class="menu-item" th:classappend="${menuSelect != 'Products'} ? '' : active">
+					<a th:href="@{/products}" class="menu-link"> 
+						<i class="menu-icon fas fa-boxes"></i> Products
+					</a>
+				</li>
+			</th:block>
+			<th:block sec:authorize="hasAnyAuthority('Admin','Salesperson')">
+				<li class="menu-item" th:classappend="${menuSelect != 'Customers'} ? '' : active">
+					<a th:href="@{/customers}" class="menu-link"> 
+						<i class="menu-icon fas fa-user-tie"></i> Customers
+					</a>
+				</li>
+			</th:block>
+			<th:block sec:authorize="hasAnyAuthority('Admin','Salesperson','Shipper')">
+				<li class="menu-item" th:classappend="${menuSelect != 'Orders'} ? '' : active">
+					<a th:href="@{/orders}" class="menu-link">
+						<i class="menu-icon fas fa-clipboard-list"></i> Orders
+					</a>
+				</li>
+			</th:block>
+			<th:block sec:authorize="hasAnyAuthority('Admin','Salesperson')">
+				<li class="menu-item" th:classappend="${menuSelect != 'Report'} ? '' : active">
+					<a th:href="@{/report}" class="menu-link">
+						<i class="menu-icon fas fa-newspaper"></i> Sales Report
+					</a>
+				</li>
+			</th:block>
+		</ul>
+	</aside>
+
+	<nav th:fragment="layout-navbar" class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme" id="layout-navbar">
+		<div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
+			<a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
+				<i class="bx bx-menu bx-sm"></i>
+			</a>
+		</div>
+		<div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
+			<th:block th:if="${user != null}">
+				<form th:action="@{/logout}" method="post" th:hidden="true"
+					name="logoutForm">
+					<input type="submit" />
+				</form>			
+				<ul class="navbar-nav flex-row align-items-center ms-auto">
+					<h5 class="card-title text-primary m-auto"><div class="d-flex"> Xin chào&nbsp;<span class="fw-semibold d-block" sec:authentication="principal.fullname"></span>!&nbsp;🎉</div></h5>
+					<li class="nav-item navbar-dropdown dropdown-user dropdown">
+						<a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
+							<div class="avatar avatar-online d-flex">
+								<img th:if="${user.photos != null}" th:src="@{${user.getPhotosImagesPath}}" class="w-px-40 h-auto rounded-circle">
+							</div>
+						</a>
+						<ul class="dropdown-menu dropdown-menu-right">
+							<li>
+								<a class="dropdown-item" th:href="@{/account}">
+									<div class="d-flex">
+										<div class="flex-shrink-0 me-3">
+											<div class="avatar avatar-online">
+												<img th:if="${user.photos != null}" th:src="@{${user.getPhotosImagesPath}}" class="w-px-40 h-auto rounded-circle">
+											</div>
+										</div>
+										<div class="flex-grow-1">
+											<span class="fw-semibold d-block" sec:authentication="principal.fullname"></span>
+											<small class="text-muted" sec:authentication="principal.authorities"></small>
+										</div>
+									</div>
+								</a>
+							</li>
+							<li>
+								<div class="dropdown-divider"></div>
+							</li>
+							<li>
+								<a class="dropdown-item" th:href="@{/account}"> 
+									<i class="bx bx-user me-2"></i> 
+									<span class="align-middle">My Profile</span>
+								</a>
+							</li>
+							<li>
+								<div class="dropdown-divider"></div>
+							</li>
+							<li>
+								<a class="dropdown-item" id="logoutLink" href="">
+									<i class="bx bx-power-off me-2"></i> 
+								Logout</a>
+								
+								</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</th:block>
+		</div>
+	</nav>
+
+	<footer th:fragment="content-footer" class="content-footer footer bg-dark">
+		<div
+			class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
+			<div class="mb-2 mb-md-0">
+				©
+				<script>
+                    document.write(new Date().getFullYear());
+                  </script> , made with ❤️ by <span class="footer-link fw-bolder">Nhóm 2 WWW</span>
+			</div>
+		</div>
+	</footer>
+
+	<div th:fragment="search_form(moduleURL)" class="navbar-nav align-items-center">
+		<form th:action="@{${moduleURL}}" class="nav-item d-flex align-items-center">
+			<input type="hidden" name="sortField" th:value="${sortField}" /> 
+			<input type="hidden" name="sortDir" th:value="${sortDir}" />
+			<i class="bx bx-search fs-4 lh-0"></i>
+			&nbsp;&nbsp;
+            <input type="search" name="keyword" th:value="${keyword}" class="form-control border-0 shadow-none" placeholder="Search..." aria-label="Search..." required/>
+			&nbsp;&nbsp; 
+			<button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
+			&nbsp;&nbsp; 
+			<button type="button" value="Clear" class="btn btn-secondary" onclick="cleanFilter()" ><i class="fas fa-eraser"></i></button>
+		</form>
+	</div>
+	<div th:fragment="checkUnique" class="modal fade text-center" id="modalDialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="modalTitle">Warning</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					<span id="modalBody"> </span>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div th:fragment="pagination(moduleURL,entityName)" th:remove="tag">
+		<div class="text-center m-1" th:if="${totalItem > 0}">
+			<span>Showing [[${entityName}]] # [[${startCount}]] to [[${endCount}]] of [[${totalItem}]] </span>
+		</div>
+		<div class="text-center m-1" th:unless="${totalItem > 0}">
+			<span>No [[${entityName}]] found</span>
+		</div>
+
+		<div th:if="${totalPage > 1}">
+			<nav>
+				<ul class="pagination justify-content-center">
+					<li th:class="${currentPage >1 ? 'page-item' : 'page-item disabled' }">
+						<a th:replace="fragments :: page_link(${moduleURL}, 1, 'First')"></a>
+					</li>
+					<li th:class="${currentPage >1 ? 'page-item' : 'page-item disabled' }">
+						<a th:replace="fragments :: page_link(${moduleURL}, ${currentPage -1}, 'Previous')"></a>
+					</li>
+					<li th:class="${currentPage != i ? 'page-item' : 'page-item active'}" th:each="i : ${#numbers.sequence(1, totalPage)}">
+						<a th:replace="fragments :: page_link(${moduleURL}, ${i}, ${i} )"></a>
+					</li>
+					<li th:class="${currentPage < totalPage ? 'page-item' : 'page-item disabled'}">
+						<a th:replace="fragments :: page_link(${moduleURL}, ${currentPage +1}, 'Next')"></a>
+					</li>
+					<li th:class="${currentPage < totalPage ? 'page-item' : 'page-item disabled'}">
+						<a th:replace="fragments :: page_link(${moduleURL}, ${totalPage}, 'Last')"></a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+	<th th:fragment="column_link(fieldName, columnLabel)">
+		<a class="text-white" th:href="@{'/users/page/' +${currentPage} + '?sortField='+ ${fieldName} +'&sortDir=' + ${sortField != fieldName ? sortDir : sortOrther} + ${keyword != null ? '&keyword=' + keyword : ''}}">
+			[[${columnLabel}]] 
+		</a>
+		<span th:if="${sortField == fieldName}"
+			th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}">
+		</span>
+	</th>
+	<a th:fragment="page_link(moduleURL,pageNum, pageLabel)" class="page-link" th:href="@{${moduleURL} + '/page/' + ${pageNum} + '?sortField='+ ${sortField}+ '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''} + ${categoryId != null ? '&categoryId=' + categoryId : ''} }">
+		[[${pageLabel}]] 
+	</a>
+</body>
+</html>

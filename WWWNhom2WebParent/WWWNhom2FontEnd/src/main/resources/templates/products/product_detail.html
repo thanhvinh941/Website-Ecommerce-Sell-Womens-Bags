@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: page_head(${pageTitle}, 'none')" />
+<body>
+	<div class="container-fluid m-0 p-0">
+		<div th:replace="fragments :: navbarNoCategory"></div>
+		<div class="breadcrumbs"
+			th:if="${categoryParents != null && !categoryParents.empty}">
+			<div class="container m-3">
+				<div class="row">
+					<div class="col-12">
+						<div class="bread-inner">
+							<ul class="bread-list">
+								<li><a th:href="@{/}">Home</a></li>
+								<th:block th:each="parent : ${categoryParents}">
+									<li class="active"><a th:href="@{'/c/' + ${parent.alias}}"><i
+											class="ti-arrow-right"></i>[[${parent.name}]]</a></li>
+								</th:block>
+								<li class="active" th:if="${productDetail != null}"><a
+									th:href="@{'/p/' + ${productDetail.alias}}"><i
+										class="ti-arrow-right"></i>[[${productDetail.name}]]</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm">
+					<div class="productDetail border">
+						<img alt="" th:src="@{${productDetail.getMainImagePath}}"
+							class="img-fluid" />
+					</div>
+					<div>
+						<h3>Image extra</h3>
+					</div>
+				</div>
+				<div class="col-sm">
+					<div>
+						<h2>[[${productDetail.name}]]</h2>
+					</div>
+					<div>
+						<span>[[${productDetail.brand.name}]]</span>
+					</div>
+					<div>
+						List price: <span th:if="${productDetail.discountPercent <= 0}">$[[${productDetail.price}]]</span>
+						<del th:if="${productDetail.discountPercent > 0}">
+							<span>$[[${productDetail.price}]]</span>
+						</del>
+					</div>
+					<div class="product-price"
+						th:if="${productDetail.discountPercent > 0}">
+						Price: <span style="font-size: larger; color: darkred;">$[[${productDetail.getDiscountPrice}]]</span>
+						([[${productDetail.discountPercent}]] % off)
+					</div>
+					<div>
+						<div th:utext="${productDetail.shortDescription}"></div>
+					</div>
+				</div>
+				<div class="col-sm-2">
+					<div class="quickview-content p-2 text-center">
+						<div class="quantity my-2">
+							<span th:if="${productDetail.inStock}" class="text-success">
+								<b>In Stock</b>
+							</span>
+							<span th:unless="${productDetail.inStock}" class="text-danger">
+								<b>Out Stock</b>
+							</span>
+							<div th:if="${productDetail.inStock}" class="input-group">
+								<div class="button minus">
+									<button type="button" class="btn btn-primary btn-number"
+										disabled="disabled" data-type="minus" data-field="quant[1]">
+										<i class="ti-minus"></i>
+									</button>
+								</div>
+								<input type="text" name="quant[1]" class="input-number"
+									data-min="1" data-max="1000" value="1">
+								<div class="button plus">
+									<button type="button" class="btn btn-primary btn-number"
+										data-type="plus" data-field="quant[1]">
+										<i class="ti-plus"></i>
+									</button>
+								</div>
+							</div>
+							<!--/ End Input Order -->
+						</div>
+						<div th:if="${productDetail.inStock}" class="add-to-cart">
+							<a th:href="@{'/add-to-cart/' + ${productDetail.id} + '/1' }" class="btn px-4">Add to cart</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-12">
+					<h3>Products Description:</h3>
+					<div th:utext="${productDetail.fullDescription}"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade text-center" id="detailModal">
+		<div class="modal-dialog modal-xl">
+			<div class="modal-content"></div>
+		</div>
+	</div>
+
+	<div th:replace="fragments :: footer"></div>
+	<div th:replace="fragments :: script"></div>
+	<script type="text/javascript">
+	$(document).ready(function(){	 
+		$(".link-detail").on("click", function(e){
+			e.preventDefault();
+			linkDetailURL = $(this).attr("href");
+			$("#detailModal").modal("show").find(".modal-content").load(linkDetailURL);
+		});
+    });
+	</script>
+	<script type="javascript">	
+	</script>
+</body>
+</html>

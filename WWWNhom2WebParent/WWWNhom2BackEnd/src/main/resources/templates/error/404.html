@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeLeaf-extras-springsecurity5">
+<head
+	th:replace="fragments :: page_head('Error - Shopme Admin', 'none')" />
+<body>
+	<div class="layout-wrapper layout-content-navbar">
+		<div class="layout-container">
+			<aside th:replace="fragments :: layout-menu('Brands')"></aside>
+			<div class="layout-page">
+				<nav th:replace="fragments :: layout-navbar"></nav>
+				<div class="content-wrapper">
+					<div class="container-xxl flex-grow-1 container-p-y">
+						<div class="container-fluid">
+							<section class="page_404">
+								<div class="container">
+									<div class="row">
+										<div class="col-sm-12 ">
+											<div class="col-sm-10 col-sm-offset-1  text-center m-auto">
+												<div class="four_zero_four_bg">
+													<h1 class="text-center ">404</h1>
+												</div>
+												<div class="contant_box_404">
+													<h3 class="h2">Look like you're lost</h3>
+						
+													<p>the page you are looking for not avaible!</p>
+						
+													<a th:href="@{/}" class="link_404">Go to Home</a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</section>
+						</div>
+					</div>
+					<footer th:replace="fragments :: content-footer"></footer>
+					<div class="content-backdrop fade"></div>
+				</div>
+			</div>
+		</div>
+		<div class="layout-overlay layout-menu-toggle"></div>
+	</div>
+</body>
+</html>

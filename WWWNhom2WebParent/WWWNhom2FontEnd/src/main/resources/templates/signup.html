@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeLeaf-extras-springsecurity5">
+<head>
+<head th:replace="fragments :: page_head('Login - Sign up', 'tag')" />
+	<link rel="stylesheet" type="text/css" th:href="@{/css/login-css.css}" />
+	<script type="text/javascript" th:src="@{/js/login-js.js}"></script>
+</head>
+<body>
+		<div th:replace="fragments :: navbarNoCategory"></div>
+		<div class="logmod" >
+			<div class="logmod__wrapper">
+				<div class="logmod__container">
+					<ul class="nav nav-tabs nav-pills justify-content-center"
+						style="max-width: 550px; margin: auto;">
+						<li class="nav-item" style="width: 100%;">
+						<a style="text-align: center; line-height: 72px; height: 72px; padding: 8px 16px; font-weight: 700; font-size: 16px;"
+							class="nav-link" data-toggle="tab" href="#signup">SIGN UP</a></li>
+					</ul>
+					<div class="tab-content" style="max-width: 550px; margin: auto;">
+						<div id="signup" class="m-0 p-0 container-fluid tab-pane fade">
+							<div class="logmod__heading">
+								<span class="logmod__heading-subtitle">
+									Enter your personal details <strong>to create an account</strong>
+								</span>
+							</div>
+							<div class="logmod__form">
+								<form th:action="@{/register}" method="post" class="simform" th:object="${customer}" onsubmit="return checkEmailUnique(this)">
+									<div class="sminputs">
+										<div class="input string optional">
+											<label class="string optional" for="firstname">Fisrt Name*</label> 
+											<input name="fisrtname" style="outline: none;" class="string optional" th:field="*{firstname}" required minlength="2" maxlength="45" />
+										</div>
+										<div class="input string optional">
+											<label class="string optional" for="lastname">Last Name*</label> 
+											<input name="lastname" style="outline: none;" class="string optional" th:field="*{lastname}" required minlength="2" maxlength="128" />
+										</div>
+									</div>
+									<div class="sminputs">
+										<div class="input full">
+											<label class="string optional" for="user-name">Email*</label>
+											<input name="email" style="outline: none;" class="string optional" th:field="*{email}" required minlength="8" maxlength="128" />
+										</div>
+									</div>
+									<div class="sminputs">
+										<div class="input full">
+											<label class="string optional" for="phone">Phone*</label> 
+											<input name="phone" style="outline: none;" class="string optional" th:field="*{phoneNumber}" minlength="8" maxlength="128" />
+										</div>
+									</div>
+									<div class="sminputs">
+										<div class="input string optional">
+											<label class="string optional" for="user-pw">Password*</label>
+											<input name="password" style="outline: none;" class="string optional" th:field="*{password}" oninput="checkPasswordMath(document.getElementById('confirmPassword'))">
+										</div>
+										<div class="input string optional">
+											<label class="string optional" for="user-pw-repeat">Repeat password *</label>
+											<input style="outline: none;" class="string optional" id="confirmPassword" type="password" minlength="8" maxlength="20" oninput="checkPasswordMath(this)" />
+										</div>
+									</div>
+									<div class="simform__actions">
+										<input style="border-radius: 25px;" class="sumbit" name="commit" type="submit" value="Create Account" />
+										<span class="simform__actions-sidetext">
+											By creating an account you agree to our 
+											<a class="special" th:href="@{/coming-soon}" target="_blank" role="link"><strong>Terms & Privacy</strong></a>
+										</span>
+									</div>
+									<hr style="margin-bottom: 0px;" class="p-0">
+									<div class="simform__actions p-0">
+										<span class="simform__actions-fulltext">
+											If you have account  
+											<a class="special" th:href="@{/signup}" target="_blank" role="link"><strong>Go login</strong></a>
+										</span>
+									</div>
+								</form>
+							</div>
+							<div class="logmod__alter">
+								<div class="logmod__alter-container">
+									<a th:href="@{/coming-soon}"
+										class="connect facebook">
+										<div class="connect__icon">
+											<i class="fa fa-facebook m-auto"></i>
+										</div>
+										<div class="connect__context">
+											<span>Sign in with <strong>Facebook</strong></span>
+										</div>
+									</a> <a th:href="@{/coming-soon}"
+										class="connect googleplus">
+										<div class="connect__icon">
+											<i class="fa fa-google-plus m-auto"></i>
+										</div>
+										<div class="connect__context">
+											<span>Sign in with <strong>Google+</strong></span>
+										</div>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade text-center"
+		id="modalDialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="modalTitle">Warning</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					<span id="modalBody"></span>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div th:replace="fragments :: footer"></div>
+	<div th:replace="fragments :: script"></div>
+	<script type ="text/javascript"> 
+		modelURL="[[@{/users}]]";
+		
+		$(document).ready(function() { 
+			$(function() { 
+				$('.nav-tabs a[href="#signup"]').tab('show');
+			});
+		});
+		
+		function checkPasswordMath(confirmPassword){
+			if(confirmPassword.value != $("#password").val()){
+				confirmPassword.setCustomValidity("Passwords do not math!");
+			}else{
+				confirmPassword.setCustomValidity("");
+			}
+		}
+		
+		url = "[[@{/customers/check_email}]]";
+		function checkEmailUnique(form){
+			customerEmail = $("#email").val();
+			customerId = $("#id").val(); 
+			csrfValue = $("input[name='_csrf']").val();
+			params = {id : customerId, email : customerEmail, _csrf : csrfValue};
+			$.post(url, params, function(response){
+				if(response == "OK"){
+					form.submit();
+				}else if (response == "Duplicate"){
+					showWarningDialog("There is another customer having the email: " + customerEmail);
+				}else{
+					showErrorDialog("UnKnown response form server.");
+				}
+			}).fail(function(){
+				showModalDialog("Error", "Could not connect to the server.");
+			});
+			
+			return false;
+		} 
+		
+		function showModalDialog(title, message){
+			$("#modalTitle").text(title);
+			$("#modalBody").text(message);
+			$("#modalDialog").modal();
+		}
+		
+		function showErrorDialog(message){
+			showModalDialog("Error", message);
+		}
+		
+		function showWarningDialog(message){
+			showModalDialog("Warning", message);
+		}
+	</script>
+	</script>
+</body>
+</html>

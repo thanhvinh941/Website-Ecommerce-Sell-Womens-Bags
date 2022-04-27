@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: page_head('Home - Shopme', 'none')" />
+<body>
+	<div class="container-fluid m-0 p-0">
+		<div th:replace="fragments :: navbar"></div>
+		<div th:replace="fragments :: carousel"></div>
+		<div th:replace="fragments :: banner"></div>
+		<div th:replace="fragments :: productArea"></div>
+		<section th:replace="fragments :: midiumBanner"></section>
+		<div th:replace="fragments :: mostPopular"></div>
+		<section th:replace="fragments :: cowndown"></section>
+		<section th:replace="fragments :: shopServices"></section>
+		<section th:replace="fragments :: newsletter"></section>
+	</div>
+	<div th:replace="fragments :: modal"></div>
+	<div th:replace="fragments :: footer"></div>
+	<div th:replace="fragments :: script"></div>
+	<script type="text/javascript">
+	
+	$(document).ready(function(){
+		$(".link-detail").on("click", function(e){
+			e.preventDefault();
+			linkDetailURL = $(this).attr("href");
+			$("#detailModal").modal("show").find(".modal-content").load(linkDetailURL);
+		});
+    });
+    
+	</script>
+</body>
+</html>

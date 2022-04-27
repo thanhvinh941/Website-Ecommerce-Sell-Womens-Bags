@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeLeaf-extras-springsecurity5">
+<head>
+<head th:replace="fragments :: page_head('Login - Sign up', 'tag')" />
+	<link rel="stylesheet" type="text/css" th:href="@{/css/login-css.css}" />
+	<script type="text/javascript" th:src="@{/js/login-js.js}"></script>
+</head>
+<body>
+		<div th:replace="fragments :: navbarNoCategory"></div>
+		<div class="logmod" >
+			<div class="logmod__wrapper">
+				<div class="logmod__container">
+					<ul class="nav nav-tabs nav-pills justify-content-center"
+						style="max-width: 550px; margin: auto;">
+						<li class="nav-item w-100">
+						<a style="text-align: center; line-height: 72px; height: 72px; padding: 8px 16px; font-weight: 700; font-size: 16px;"
+							class="nav-link" data-toggle="tab" href="#login">LOGIN</a></li>
+					</ul>
+					<div class="tab-content" style="max-width: 550px; margin: auto;">
+						<div id="login" class="m-0 p-0 container-fluid tab-pane fade">
+							<div class="logmod__heading">
+								<div th:if="${param.error}">
+									<p class="text-danger">
+										<span th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}">Wrong
+											input!</span>
+									</p>
+								</div>
+								<div th:if="${param.logout}">
+									<p class="text-warning">You have been logged out.</p>
+								</div>
+								<span class="logmod__heading-subtitle">
+									<strong>[[${message}]]</strong>
+								</span>
+								<span class="logmod__heading-subtitle">
+									Enter your email and password 
+									<strong>to sign in</strong>
+								</span>
+							</div>
+							<div class="logmod__form">
+								<form th:action="@{/login}" method='POST'>
+									<div class="sminputs">
+										<div class="input full">
+											<label class="string optional" for="user-name">Email*</label>
+											<input name="email" style="outline: none;" class="string optional" placeholder="Email" type="email"/>
+										</div>
+									</div>
+									<div class="sminputs">
+										<div class="input full">
+											<label class="string optional" for="user-pw">Password*</label>
+											<input name="password" style="outline: none;" class="string optional" maxlength="255" placeholder="Password" type="password" size="50" />
+											<span class="hide-password">Show</span>
+										</div>
+									</div>
+									<div class="simform__actions">
+										<input type="checkbox" name="remember-me">
+										<label>Remember me</label>
+									</div>
+									<div class="simform__actions">
+										<input style="border-radius: 25px;" class="sumbit" name="commit" type="submit" value="Log In" /> 
+										<span class="simform__actions-sidetext">
+											Forgot your password?<br>
+											<a class="special" role="link" th:href="@{/forgot-password}">
+												<strong>Click here</strong>
+											</a>
+										</span>
+									</div>
+									<hr style="margin-bottom: 0px;" class="p-0">
+									<div class="simform__actions p-0">
+										<span class="simform__actions-fulltext">
+											If you don't have account  
+											<a class="special" th:href="@{/signup}" target="_blank" role="link"><strong>Go register</strong></a>
+										</span>
+									</div>
+								</form>
+							</div>
+							<div class="logmod__alter">
+								<div class="logmod__alter-container">
+									<a th:href="@{/coming-soon}"
+										class="connect facebook">
+										<div class="connect__icon">
+											<i class="fa fa-facebook m-auto"></i>
+										</div>
+										<div class="connect__context">
+											<span>Sign in with <strong>Facebook</strong></span>
+										</div>
+									</a> <a th:href="@{/coming-soon}"
+										class="connect googleplus">
+										<div class="connect__icon">
+											<i class="fa fa-google-plus m-auto"></i>
+										</div>
+										<div class="connect__context">
+											<span>Sign in with <strong>Google+</strong></span>
+										</div>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade text-center"
+		id="modalDialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="modalTitle">Warning</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					<span id="modalBody"></span>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div th:replace="fragments :: footer"></div>
+	<div th:replace="fragments :: script"></div>
+	<script type ="text/javascript"> 
+		$(document).ready(function() { 
+			$(function() { 
+				$('.nav-tabs a[href="#login"]').tab('show');
+			});
+		});
+	</script>
+</body>
+</html>

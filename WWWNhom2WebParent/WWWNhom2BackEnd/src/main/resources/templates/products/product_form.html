@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="https://www.thymeleaf.org/thymeLeaf-extras-springsecurity5">
+<head>
+	<head th:replace="fragments :: page_head(${pageTitle},'tag')" />
+	<link rel="stylesheet" type="text/css"
+	th:href="@{/richText/richtext.min.css}" />
+	<script type="text/javascript"
+	th:src="@{/richText/jquery.richtext.min.js}">
+	</script>
+</head>
+<body>
+	<div class="layout-wrapper layout-content-navbar">
+		<div class="layout-container">
+			<aside th:replace="fragments :: layout-menu('Products')"></aside>
+			<div class="layout-page">
+				<nav th:replace="fragments :: layout-navbar"></nav>
+				<div class="content-wrapper">
+					<div class="container-xxl flex-grow-1 container-p-y">
+						<div class="container-fluid">
+							<div>
+								<h3>Manage Product |[[${pageTitle}]]</h3>
+							</div>
+							<form class="card" th:action="@{/products/save}" method="post"
+								enctype="multipart/form-data" th:object="${product}" onsubmit="return checkUnique(this)">
+								<input type="hidden" th:field="*{id}">
+								<input th:if="${product.category !=null }" type="hidden" id="categoryId" th:value="${product.category.id}">
+								<div>
+									<ul class="nav nav-tabs" id="myTab" role="tablist">
+										<li class="nav-item"><a class="nav-link active"
+											data-toggle="tab" href="#overview" role="tab">Overview</a></li>
+										<li class="nav-item"><a class="nav-link" data-toggle="tab"
+											href="#description" role="tab">Description</a></li>
+										<li class="nav-item"><a class="nav-link" data-toggle="tab"
+											href="#images" role="tab">Images</a></li>
+										<li class="nav-item"><a class="nav-link" data-toggle="tab"
+											href="#detail" role="tab">Detail</a></li>
+										<li class="nav-item"><a class="nav-link" data-toggle="tab"
+											href="#shipping" role="tab">Shipping</a></li>
+									</ul>
+					
+									<!-- Tab panes -->
+									<div class="tab-content">
+										<div class="tab-pane active p-3" id="overview" role="tabpanel">
+											<div th:replace="products/product_overview :: content"></div>
+										</div>
+										<div class="tab-pane p-3" id="description" role="tabpanel">
+											<div th:replace="products/product_description :: content"></div>
+										</div>
+										<div class="tab-pane p-3" id="images" role="tabpanel">
+											<div th:replace="products/product_images :: content"></div>
+										</div>
+										<div class="tab-pane p-3" id="detail" role="tabpanel">
+											<div th:replace="products/product_detail :: content"></div>
+											<div>
+												<input type="button" class="btn btn-secondary" value="Add more Detail"
+													onclick="addNewDetail()"
+												/>
+											</div>
+										</div>
+										<div class="tab-pane p-3" id="shipping" role="tabpanel">
+											<div th:replace="products/product_shipping :: content"></div>
+										</div>
+									</div>
+								</div>
+								<div class="text-center">
+									<input type="submit" value="Save" class="btn btn-primary m-3" /> <input
+										type="button" value="Cancel" class="btn btn-secondary"
+										id="buttonCancel" />
+								</div>
+							</form>
+						</div>
+					</div>
+					<footer th:replace="fragments :: content-footer"></footer>
+					<div class="content-backdrop fade"></div>
+				</div>
+			</div>
+		</div>
+		<div class="layout-overlay layout-menu-toggle"></div>
+	</div>
+	<div th:replace="fragments :: checkUnique"></div>
+	<script type="text/javascript">
+		MAX_FILE_SIZE = 502400;
+		modelURL="[[@{/products}]]";
+		brandURL="[[@{/brands}]]";
+		urlPost = "[[@{/products/check_unique}]]";
+		defaultImageUrl = "[[@{/images/068 image-thumbnail.png}]]";
+		dropdownBrands = $("#brand");
+		dropdownCategories = $("#category");
+		$(document).ready(function(){
+			$("#shortDescription").richText();
+			$("#fullDescription").richText();
+			dropdownBrands.change(function(){
+				dropdownCategories.empty();
+				getCategories();
+			});
+			getCategoriesForNewForm(
+				
+			);
+		});
+		function getCategoriesForNewForm(){
+			catIdField = $("#categoryId");
+			editMode = false;
+			if(catIdField.length){
+				editMode = true;
+			}
+			
+			if(!editMode){
+				getCategories();
+			}
+		};
+		
+		function getCategories(){
+			brandId = dropdownBrands.val();
+			url=brandURL + "/" + brandId + "/categories";
+			
+			$.get(url,function(responseJson){
+				$.each(responseJson,function(index, category){
+					$("<option>").val(category.id).text(category.name).appendTo(dropdownCategories);
+				});
+			});
+		}
+		
+		function checkUnique(form){
+			productId = $("#id").val();
+			productName = $("#name").val();
+			csrfValue = $("input[name='_csrf']").val();
+			
+			params = {id: productId,name :productName,_csrf : csrfValue};
+			
+			$.post(urlPost,params,function(response){
+				if(response == "OK"){
+					form.submit();
+				}else if (response == "Duplicate"){
+					showWarningDialog("There is another product having the same name: " + productName);
+				}else{				
+					showErrorDialog("UnKnown response form server!");
+				}
+			}).fail(function(){
+					showErrorDialog("UnKnown response form server!");		
+			});
+			
+			return false;
+		}
+	</script>
+	<script type="text/javascript" th:src="@{/js/common_form.js}"></script>
+	<script type="text/javascript" th:src="@{/js/product_form.js}"></script>
+</body>
+</html>

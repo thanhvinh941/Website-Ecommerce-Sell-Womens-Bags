@@ -1,0 +1,85 @@
+
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal"
+		aria-label="Close" style="margin-right: 8px;">
+		<span class="ti-close" aria-hidden="true"></span>
+	</button>
+</div>
+<div class="modal-body">
+	<div class="row no-gutters m-0">
+		<div class="col-3">
+			<!-- Product Slider -->
+			<div class="product-gallery">
+				<div class="quickview-slider-active">
+					<div class="single-slider">
+						<img th:src="@{${product.getMainImagePath}}" alt="#">
+					</div>
+				</div>
+			</div>
+			<!-- End Product slider -->
+		</div>
+		<div class="col-lg-6">
+			<div class="quickview-content">
+				<h2>[[${product.name}]]</h2>
+				<div class="quickview-ratting-review">
+					<div class="quickview-ratting-wrap">
+						<div class="quickview-ratting">
+							<i class="yellow fa fa-star"></i> <i class="yellow fa fa-star"></i>
+							<i class="yellow fa fa-star"></i> <i class="yellow fa fa-star"></i>
+							<i class="fa fa-star"></i>
+						</div>
+
+					</div>
+					<div class="quickview-stock"  th:if="${product.inStock}">
+						<span><i class="fa fa-check-circle-o"></i> in stock</span>
+					</div>
+					<div class="quickview-stock" th:unless="${product.inStock}">
+						<span><i class="fa fa-times-circle-o text-danger"></i> out stock</span>
+					</div>
+				</div>
+				<h3>[[${product.cost}]]</h3>
+				<div th:utext="${product.fullDescription}"
+					class="quickview-peragraph" style="min-height: 200px;"></div>
+			</div>
+		</div>
+		<div class="col-3" style="margin-top: 50px;">
+			<div class="quantity my-3">
+				<div th:if="${product.inStock}" class="input-group" style="width: 180px;">
+					<div class="button minus">
+						<button type="button" class="btn btn-primary btn-number"
+							disabled="disabled" data-type="minus" data-field="quant[1]">
+							<i class="ti-minus"></i>
+						</button>
+					</div>
+					<input type="text" name="quant[1]" class="input-number"
+						data-min="1" data-max="1000" value="1">
+					<div class="button plus">
+						<button type="button" class="btn btn-primary btn-number"
+							data-type="plus" data-field="quant[1]">
+							<i class="ti-plus"></i>
+						</button>
+					</div>
+				</div>
+			</div>
+			<div th:if="${product.inStock}" class="add-to-cart">
+				<a th:href="@{'/add-to-cart/' + ${product.id} + '/1' }" class="btn">
+					Add to cart
+				</a>
+				<a href="#" class="btn min">
+					<i class="ti-heart"></i>
+				</a>
+			</div>
+			<div class="default-social m-3">
+				<h4 class="share-now">Share:</h4>
+				<ul>
+					<li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
+					<li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
+					<li><a class="youtube" href="#"><i
+							class="fa fa-pinterest-p"></i></a></li>
+					<li><a class="dribbble" href="#"><i
+							class="fa fa-google-plus"></i></a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="https://www.thymeleaf.org/thymeLeaf-extras-springsecurity5">
+<body>
+	<div th:fragment="content" id="divProductDetail">
+		<th:block th:each="detail, status : ${product.details}">
+			<div class="form-inline" th:id="'divDetail'+ ${status.index}">
+				<input type="hidden" name="detailIDs" th:value="${detail.id}">
+				<label class="m-3">Name:</label>
+				<input type="text" class="form-control w-25" th:value="${detail.name}" name="detailNames" maxlength="255" />
+				<label class="m-3">Value:</label>
+				<input type="text" class="form-control w-25" th:value="${detail.value}" name="detailValues" maxlength="255" />
+				<a name="linkRemoveExtraDetail" class="btn fas fa-times-circle fa-2x icon-dark float-right" 
+				></a>
+			</div>
+		</th:block>
+	
+		<div class="form-inline" th:id="'divDetail' + ${#lists.size(product.details)}">
+			<input type="hidden" name="detailIDs" value="0">
+			<label class="m-3">Name:</label>
+			<input type="text" class="form-control w-25" name="detailNames" maxlength="255" />
+			<label class="m-3">Value:</label>
+			<input type="text" class="form-control w-25" name="detailValues" maxlength="255" />
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="https://www.thymeleaf.org/thymeLeaf-extras-springsecurity5">
+<body>
+	<div th:fragment="content" th:remove="tag">
+		<div class="row" id="divProductImages">
+			<div class="col border m-3 p-2">
+				<div>
+					<label>Main Images: [[${product.mainImage}]]</label>
+				</div>
+				<div class="m-2">
+					<img id="thumbnail" class="img-fluid"
+						th:src="@{${product.mainImagePath}}" />
+				</div>
+				<div>
+					<input type="file" id="fileImage" name="fileImage"
+						th:required="${product.mainImage == null}">
+				</div>
+				<input type="hidden" th:field="*{mainImage}">
+			</div>
+
+			<th:block th:each="productImage, status : ${product.images}">
+				<div class="col border m-3 p-2" th:id="'divExtraImage' + ${status.index}">
+					<div>
+						<label>Extra Images #[[${status.index + 1}]]: [[${productImage.name}]] </label>
+						<a name="linkRemoveExtraImage" class="btn fas fa-times-circle fa-2x icon-dark float-right">
+						</a>
+					</div>
+					<div class="m-2">
+						<img class="img-fluid" th:id="'extrathumbnail' + ${status.index}"
+							th:src="@{${productImage.imagePath}}" />
+					</div>
+					<div>
+						<input type="file" name="extraImage">
+					</div>
+					<input type="hidden" name="imageIDs" th:id="'imageId' + ${status.index}"
+					th:value="${productImage.id}"
+					/>
+					<input type="hidden" name="imageNames" th:id="'imageName' + ${status.index}"
+					th:value="${productImage.name}"/>
+				</div>
+			</th:block>
+
+			<div class="col border m-3 p-2" th:id="'divExtraImage' + ${#lists.size(product.images)}">
+				<div th:id="'extraImageHeader' + ${#lists.size(product.images)}">
+					<label>Extra Images #[[${#lists.size(product.images)+1}]]:</label>
+				</div>
+				<div class="m-2">
+					<img th:id="'extrathumbnail' + ${#lists.size(product.images)}" class="img-fluid"
+						th:src="@{/images/068 image-thumbnail.png }" />
+				</div>
+				<div>
+					<input type="file" name="extraImage">
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

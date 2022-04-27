@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="https://www.thymeleaf.org/thymeLeaf-extras-springsecurity5">
+<body>
+	<div th:fragment="content" th:remove="tag">
+		<div>
+			<label>Short Description</label>
+			<textarea class="form-control" th:field="*{shortDescription}" rows="5" required="required"></textarea>
+		</div>
+		<div>
+			<label>Short Description</label>
+			<textarea class="form-control" th:field="*{fullDescription}" rows="5" required="required"></textarea>
+		</div>
+	</div>
+</body>
+</html>

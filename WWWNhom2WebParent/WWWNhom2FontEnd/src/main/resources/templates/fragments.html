@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeLeaf-extras-springsecurity5">
+<head th:fragment="page_head(title,remove)" th:remove="${remove}">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport"
+	content="width=device-width,initial-scale=1.0, minimum-scale=1.0">
+<title>[[${title}]]</title>
+<link rel="stylesheet" type="text/css"
+	th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/fontawesome/all.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/style.css}" />
+<link rel="icon" type="image/png" href="images/favicon.png">
+<link
+	href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap"
+	rel="stylesheet">
+<link rel="stylesheet" th:href="@{/css/magnific-popup.min.css}">
+<link rel="stylesheet" th:href="@{/css/font-awesome.css}">
+<link rel="stylesheet" th:href="@{/css/jquery.fancybox.min.css}">
+<link rel="stylesheet" th:href="@{/css/themify-icons.css}">
+<link rel="stylesheet" th:href="@{/css/niceselect.css}">
+<link rel="stylesheet" th:href="@{/css/animate.css}">
+<link rel="stylesheet" th:href="@{/css/flex-slider.min.css}">
+<link rel="stylesheet" th:href="@{/css/owl-carousel.css}">
+<link rel="stylesheet" th:href="@{/css/slicknav.min.css}">
+<link rel="stylesheet" th:href="@{/css/reset.css}">
+<link rel="stylesheet" th:href="@{/css/responsive.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/slick/slick.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/slick/slick-theme.css}" />
+</head>
+<body>
+	<div th:fragment="carousel" id="carouselExampleIndicators"
+		class="carousel slide" data-ride="carousel">
+		<ol class="carousel-indicators">
+			<li data-target="#carouselExampleIndicators" data-slide-to="0"
+				class="active"></li>
+			<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+		</ol>
+		<div class="hero-slider carousel-inner">
+			<div class="carousel-item active">
+				<div class="single-slider"
+					style="background-image: url('./images/hero-1.png');">
+					<div class="container">
+						<div class="row no-gutters">
+							<div class="col-lg-9 offset-lg-3 col-12">
+								<div class="text-inner">
+									<div class="row">
+										<div class="col-lg-7 col-12">
+											<div class="hero-text">
+												<h1>
+													<span>UP TO 50% OFF</span>Mua xắm dễ dàng
+												</h1>
+												<p>
+													Maboriosam in a nesciung eget magnae <br> dapibus
+													disting tloctio in the find it pereri <br> odiy
+													maboriosm.
+												</p>
+												<div>
+													<a th:href="@{/shop-grid}" class="btn">Shop Now!</a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="carousel-item">
+				<div class="single-slider"
+					style="background-image: url('./images/hero.jpg');">
+					<div class="container">
+						<div class="row no-gutters">
+							<div class="col-lg-9 offset-lg-3 col-12">
+								<div class="text-inner">
+									<div class="row">
+										<div class="col-lg-7 col-12">
+											<div class="hero-text">
+												<h1>
+													<span>UP TO 50% OFF </span>Túi xách cho nữ
+												</h1>
+												<p>
+													Maboriosam in a nesciung eget magnae <br> dapibus
+													disting tloctio in the find it pereri <br> odiy
+													maboriosm.
+												</p>
+												<div>
+													<a th:href="@{/shop-grid}" class="btn">Shop Now!</a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<a class="carousel-control-prev" href="#carouselExampleIndicators"
+			role="button" data-slide="prev"> <span
+			class="carousel-control-prev-icon" aria-hidden="true"></span> <span
+			class="sr-only">Previous</span>
+		</a> <a class="carousel-control-next" href="#carouselExampleIndicators"
+			role="button" data-slide="next"> <span
+			class="carousel-control-next-icon" aria-hidden="true"></span> <span
+			class="sr-only">Next</span>
+		</a>
+	</div>
+
+	<div th:fragment="banner">
+		<section class="small-banner section">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-lg-4 col-md-6 col-12">
+						<div class="single-banner rounded">
+							<img th:src="@{/images/balo-collection.jpg}" alt="#">
+							<div class="content">
+								<p>Balo Collectons</p>
+								<h3>
+									Summer travel <br> collection
+								</h3>
+								<a th:href="@{/shop-grid}">Discover Now</a>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-4 col-md-6 col-12">
+						<div class="single-banner rounded">
+							<img th:src="@{/images/bag-collection.png}" alt="#">
+							<div class="content">
+								<p>Bag Collectons</p>
+								<h3>
+									Awesome Bag <br> 2020
+								</h3>
+								<a th:href="@{/shop-grid}">Shop Now</a>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-4 col-12">
+						<div class="single-banner tab-height rounded">
+							<img th:src="@{/images/flash-collection.png}" alt="#">
+							<div class="content">
+								<p>Flash Sale</p>
+								<h3>
+									Mid Season <br> Up to <span>50%</span> Off
+								</h3>
+								<a th:href="@{/shop-grid}">Discover Now</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+
+	<div th:fragment="navbar">
+		<header class="header shop">
+			<div th:replace="menus/menus :: navbar-top"></div>
+			<div th:replace="menus/menus :: navbar-mid"></div>
+			<div th:replace="menus/menus :: navbar-bot"></div>
+		</header>
+	</div>
+
+	<div th:fragment="navbarNoCategory">
+		<header class="header shop">
+			<div th:replace="menus/menus :: navbar-top"></div>
+			<div th:replace="menus/menus :: navbar-mid"></div>
+			<div th:replace="menus/menus :: navbar-bot-no-category"></div>
+		</header>
+	</div>
+
+	<div th:fragment="productArea" class="product-area section">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<div class="section-title">
+						<h2>Trending Item</h2>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-12">
+					<div class="product-info">
+						<div class="tab-pane">
+							<div class="tab-single">
+								<div class="row">
+									<th:block th:each="product : ${listProducts}">
+										<div class="col-xl-3 col-lg-4 col-md-4 col-12">
+											<div class="single-product">
+												<div class="product-img">
+													<a th:href="@{'/p/' + ${product.alias}}"> <img
+														class="default-img"
+														th:src="@{${product.getMainImagePath}}" alt="#"> <img
+														class="hover-img" th:src="@{${product.getMainImagePath}}"
+														alt="#"> <span class="price-dec"
+														th:if="${product.discountPercent > 0}">[[${product.discountPercent}]]%
+															Off</span><span class="new"
+														th:if="${(#dates.createNow().getTime() - product.updatedTime.getTime())<(1000*60*60*24*3)}">New</span>
+													</a>
+													<div class="button-head">
+														<div class="product-action">
+															<a class="link-detail"
+																th:href="@{'/p/detail-modal/' + ${product.id}}"> <i
+																class=" ti-eye"></i> <span>Quick Shop</span>
+															</a> <a title="Wishlist" href="#"> <i class=" ti-heart "></i>
+																<span>Add to Wishlist</span>
+															</a> <a title="Compare" href="#"> <i
+																class="ti-bar-chart-alt"></i> <span>Add to
+																	Compare</span>
+															</a>
+														</div>
+														<div class="product-action-2">
+															<a title="Add to cart"
+																th:href="@{'/add-to-cart/' + ${product.id} + '/1' }">Add
+																to cart</a>
+														</div>
+													</div>
+												</div>
+												<div class="product-content">
+													<h3>
+														<a th:href="@{'/p/' + ${product.alias}}">[[${product.name}]]</a>
+													</h3>
+													<div class="product-price"
+														th:if="${product.discountPercent <= 0}">
+														<span>$[[${product.price}]]</span>
+													</div>
+													<div class="product-price"
+														th:if="${product.discountPercent > 0}">
+														<span
+															style="font-size: larger; color: darkred; margin-right: 10px;">$[[${product.getDiscountPrice}]]</span>
+														<del>
+															<span>$[[${product.price}]]</span>
+														</del>
+													</div>
+												</div>
+											</div>
+										</div>
+									</th:block>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<section class="midium-banner" th:fragment="midiumBanner">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 col-md-6 col-12">
+					<div class="single-banner">
+						<img th:src="@{/images/collection.png}" alt="#">
+						<div class="content">
+							<p>Woment's Collectons</p>
+							<h3>
+								Woment's items <br>Up to<span> 50%</span>
+							</h3>
+							<a th:href="@{/shop-grid}">Shop Now</a>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-6 col-md-6 col-12">
+					<div class="single-banner">
+						<img th:src="@{/images/mid.png}" alt="#">
+						<div class="content">
+							<p>shoes women</p>
+							<h3>
+								mid season <br> up to <span>70%</span>
+							</h3>
+							<a th:href="@{/shop-grid}" class="btn">Shop Now</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+	<div th:fragment="mostPopular"
+		class="product-area most-popular section">
+		<div class="row">
+			<div class="col-12">
+				<div class="section-title">
+					<h2>Hot Item</h2>
+				</div>
+			</div>
+		</div>
+
+		<div class="logo-slider container position-relative my-2">
+			<th:block th:each="product : ${listProductsTop}">
+				<div class="single-product">
+					<div class="product-img">
+						<a th:href="@{'/p/' + ${product.alias}}"> <img
+							class="default-img" th:src="@{${product.getMainImagePath}}"
+							alt="#"> <img class="hover-img"
+							th:src="@{${product.getMainImagePath}}" alt="#"> <span
+							class="price-dec" th:if="${product.discountPercent > 0}">[[${product.discountPercent}]]%
+								Off</span> <span class="out-of-stock">Hot</span> <span class="new"
+							th:if="${(#dates.createNow().getTime() - product.updatedTime.getTime())<(1000*60*60*24*3)}">New</span>
+						</a>
+						<div class="button-head">
+							<div class="product-action">
+								<a class="link-detail"
+									th:href="@{'/p/detail-modal/' + ${product.id}}"> <i
+									class=" ti-eye"></i> <span>Quick Shop</span>
+								</a> <a title="Wishlist" href="#"> <i class=" ti-heart "></i> <span>Add
+										to Wishlist</span>
+								</a> <a title="Compare" href="#"> <i class="ti-bar-chart-alt"></i>
+									<span>Add to Compare</span>
+								</a>
+							</div>
+							<div class="product-action-2">
+								<a title="Add to cart"
+									th:href="@{'/add-to-cart/' + ${product.id} + '/1' }">Add to
+									cart</a>
+							</div>
+						</div>
+					</div>
+					<div class="product-content">
+						<h3>
+							<a th:href="@{'/p/' + ${product.alias}}">[[${product.name}]]</a>
+						</h3>
+						<div class="product-price" th:if="${product.discountPercent <= 0}">
+							<span>$[[${product.price}]]</span>
+						</div>
+						<div class="product-price" th:if="${product.discountPercent > 0}">
+							<span
+								style="font-size: larger; color: darkred; margin-right: 10px;">$[[${product.getDiscountPrice}]]</span>
+							<del>
+								<span>$[[${product.price}]]</span>
+							</del>
+						</div>
+					</div>
+				</div>
+			</th:block>
+		</div>
+	</div>
+	<section class="cown-down" th:fragment="cowndown">
+		<div class="section-inner ">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-lg-6 col-12 padding-right">
+						<div class="image">
+							<img th:src="@{/images/beatutyful-bag-for-women.png}" alt="#">
+						</div>
+					</div>
+					<div class="col-lg-6 col-12 padding-left">
+						<div class="content">
+							<div class="heading-block">
+								<p class="small-title">Deal of day</p>
+								<h3 class="title">Beatutyful bag for women</h3>
+								<p class="text">Suspendisse massa leo, vestibulum cursus
+									nulla sit amet, frungilla placerat lorem. Cars fermentum,
+									sapien.</p>
+								<h1 class="price">
+									$1200 <s>$1890</s>
+								</h1>
+								<div class="coming-time">
+									<div class="clearfix" data-countdown="2021/02/30"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+	<section th:fragment="shopServices" class="shop-services section home">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3 col-md-6 col-12">
+					<!-- Start Single Service -->
+					<div class="single-service">
+						<i class="ti-rocket"></i>
+						<h4>Free shiping</h4>
+						<p>Orders over $100</p>
+					</div>
+					<!-- End Single Service -->
+				</div>
+				<div class="col-lg-3 col-md-6 col-12">
+					<!-- Start Single Service -->
+					<div class="single-service">
+						<i class="ti-reload"></i>
+						<h4>Free Return</h4>
+						<p>Within 30 days returns</p>
+					</div>
+					<!-- End Single Service -->
+				</div>
+				<div class="col-lg-3 col-md-6 col-12">
+					<!-- Start Single Service -->
+					<div class="single-service">
+						<i class="ti-lock"></i>
+						<h4>Sucure Payment</h4>
+						<p>100% secure payment</p>
+					</div>
+					<!-- End Single Service -->
+				</div>
+				<div class="col-lg-3 col-md-6 col-12">
+					<!-- Start Single Service -->
+					<div class="single-service">
+						<i class="ti-tag"></i>
+						<h4>Best Peice</h4>
+						<p>Guaranteed price</p>
+					</div>
+					<!-- End Single Service -->
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+	<section class="shop-newsletter section" th:fragment="newsletter">
+		<div class="container">
+			<div class="inner-top">
+				<div class="row">
+					<div class="col-lg-8 offset-lg-2 col-12">
+						<!-- Start Newsletter Inner -->
+						<div class="inner">
+							<h4>Newsletter</h4>
+							<p>
+								Subscribe to our newsletter and get <span>10%</span> off your
+								first purchase
+							</p>
+							<form action="mail/mail.php" method="get" target="_blank"
+								class="newsletter-inner">
+								<input name="EMAIL" placeholder="Your email address" required
+									type="email">
+								<button class="btn">Subscribe</button>
+							</form>
+						</div>
+						<!-- End Newsletter Inner -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+		th:fragment="modal">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close" style="margin-right: 8px;">
+						<span class="ti-close" aria-hidden="true"></span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="row no-gutters">
+						<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+							<!-- Product Slider -->
+							<div class="product-gallery">
+								<div class="quickview-slider-active">
+									<div class="single-slider">
+										<img src="https://via.placeholder.com/569x528" alt="#">
+									</div>
+									<div class="single-slider">
+										<img src="https://via.placeholder.com/569x528" alt="#">
+									</div>
+									<div class="single-slider">
+										<img src="https://via.placeholder.com/569x528" alt="#">
+									</div>
+									<div class="single-slider">
+										<img src="https://via.placeholder.com/569x528" alt="#">
+									</div>
+								</div>
+							</div>
+							<!-- End Product slider -->
+						</div>
+						<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+							<div class="quickview-content">
+								<h2>Flared Shift Dress</h2>
+								<div class="quickview-ratting-review">
+									<div class="quickview-ratting-wrap">
+										<div class="quickview-ratting">
+											<i class="yellow fa fa-star"></i> <i
+												class="yellow fa fa-star"></i> <i class="yellow fa fa-star"></i>
+											<i class="yellow fa fa-star"></i> <i class="fa fa-star"></i>
+										</div>
+										<a href="#"> (1 customer review)</a>
+									</div>
+									<div class="quickview-stock">
+										<span><i class="fa fa-check-circle-o"></i> in stock</span>
+									</div>
+								</div>
+								<h3>$29.00</h3>
+								<div class="quickview-peragraph" style="min-height: 200px;">
+									<p>Lorem ipsum dolor sit amet, consectetur adipisicing
+										elit. Mollitia iste laborum ad impedit pariatur esse optio
+										tempora sint ullam autem deleniti nam in quos qui nemo ipsum
+										numquam.</p>
+								</div>
+								<div class="quantity">
+									<!-- Input Order -->
+									<div class="input-group">
+										<div class="button minus">
+											<button type="button" class="btn btn-primary btn-number"
+												disabled="disabled" data-type="minus" data-field="quant[1]">
+												<i class="ti-minus"></i>
+											</button>
+										</div>
+										<input type="text" name="quant[1]" class="input-number"
+											data-min="1" data-max="1000" value="1">
+										<div class="button plus">
+											<button type="button" class="btn btn-primary btn-number"
+												data-type="plus" data-field="quant[1]">
+												<i class="ti-plus"></i>
+											</button>
+										</div>
+									</div>
+									<!--/ End Input Order -->
+								</div>
+								<div class="add-to-cart">
+									<a href="#" class="btn">Add to cart</a> <a href="#"
+										class="btn min"><i class="ti-heart"></i></a> <a href="#"
+										class="btn min"><i class="fa fa-compress"></i></a>
+								</div>
+								<div class="default-social">
+									<h4 class="share-now">Share:</h4>
+									<ul>
+										<li><a class="facebook" href="#"><i
+												class="fa fa-facebook"></i></a></li>
+										<li><a class="twitter" href="#"><i
+												class="fa fa-twitter"></i></a></li>
+										<li><a class="youtube" href="#"><i
+												class="fa fa-pinterest-p"></i></a></li>
+										<li><a class="dribbble" href="#"><i
+												class="fa fa-google-plus"></i></a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div th:fragment="pagination(moduleURL,entityName)" th:remove="tag">
+		<div class="text-center" style="margin-top: 50px;"
+			th:if="${totalItem > 0}">
+			<span>Showing [[${entityName}]] # [[${startCount}]] to
+				[[${endCount}]] of [[${totalItem}]] </span>
+		</div>
+		<div class="text-center" style="margin-top: 50px;"
+			th:unless="${totalItem > 0}">
+			<span th:if="${keyword == null}">No [[${entityName}]] found</span> <span
+				th:iFf="${keyword != null && !keyword.isEmpty()}">No match
+				found for keyword '[[${keyword}]]'</span>
+		</div>
+
+		<div th:if="${totalPage > 1}">
+			<nav>
+				<ul class="pagination text-center">
+					<li
+						th:class="${currentPage >1 ? 'page-item' : 'page-item disabled' }">
+						<a th:replace="fragments :: page_link(${moduleURL}, 1, 'First')"></a>
+					</li>
+					<li
+						th:class="${currentPage >1 ? 'page-item' : 'page-item disabled' }">
+						<a
+						th:replace="fragments :: page_link(${moduleURL}, ${currentPage -1}, 'Previous')"></a>
+					</li>
+					<li
+						th:class="${currentPage != i ? 'page-item' : 'page-item active'}"
+						th:each="i : ${#numbers.sequence(1, totalPage)}"><a
+						th:replace="fragments :: page_link(${moduleURL}, ${i}, ${i} )"></a></li>
+					<li
+						th:class="${currentPage < totalPage ? 'page-item' : 'page-item disabled'}">
+						<a
+						th:replace="fragments :: page_link(${moduleURL}, ${currentPage +1}, 'Next')"></a>
+					</li>
+					<li
+						th:class="${currentPage < totalPage ? 'page-item' : 'page-item disabled'}">
+						<a
+						th:replace="fragments :: page_link(${moduleURL}, ${totalPage}, 'Last')"></a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+
+	<a th:fragment="page_link(moduleURL,pageNum, pageLabel)"
+		class="page-link"
+		th:href="@{${moduleURL} + '/page/' + ${pageNum} + '?sortField='+ ${sortField}+ '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">
+		[[${pageLabel}]] </a>
+	<aside th:fragment="accountStyledSideBar"
+		class="Account__StyledSideBar"
+		style="width: 250px; margin-right: 17px;">
+		<div class="Account__StyledAvatar"
+			style="display: flex; -webkit-box-align: center; align-items: center; padding-left: 7px; margin: 0px 0px 12px;">
+			<img src="https://salt.tikicdn.com/desktop/img/avatar.png">
+			<div class="info p-2">
+				Tài khoản của <br> <strong>Thanh Vinh Trương</strong>
+			</div>
+		</div>
+		<ul class="Account__Style"
+			style="margin: 0px; padding: 0px; list-style: none; font-size: 13px;">
+			<li><a class="is-active" th:href="@{/customer/account/edit}"
+				style="display: flex; -webkit-box-align: center; align-items: center; padding: 7px 18px; color: rgb(74, 74, 74);"><span>Thông
+						tin tài khoản</span></a></li>
+			<li><a class="" th:href="@{/sales/order/history}"
+				style="display: flex; -webkit-box-align: center; align-items: center; padding: 7px 18px; color: rgb(74, 74, 74);"><span>Quản
+						lý đơn hàng</span></a></li>
+			<li><a class="" th:href="@{/customer/address}"
+				style="display: flex; -webkit-box-align: center; align-items: center; padding: 7px 18px; color: rgb(74, 74, 74);"><span>Sổ
+						địa chỉ</span></a></li>
+		</ul>
+	</aside>
+
+	<div class="breadcrumbs"
+		th:fragment="breadcrumbs(breadcrumbName,breadcrumbLink)">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<div class="bread-inner">
+						<ul class="bread-list">
+							<li><a th:href="@{/}">Home</a></li>
+							<li class="active"><a th:href="@{${breadcrumbLink}}"><i
+									class="ti-arrow-right"></i>[[${breadcrumbName}]]</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<footer class="footer" th:fragment="footer">
+		<!-- Footer Top -->
+		<div class="footer-top section">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-5 col-md-6 col-12">
+						<!-- Single Widget -->
+						<div class="single-footer about">
+							<blockquote class="blockquote">
+								<small class="mb-0 call">
+									<img class="border rounded" th:src="@{/images/logo.png}" alt="#" style="height: 160px; float: left; margin: 0px 10px; ">
+									Praesent dapibus, neque id cursus ucibus,
+									tortor neque egestas augue, magna eros eu erat. Aliquam erat
+									volutpat. Nam dui mi, tincidunt quis, accumsan porttitor,
+									facilisis luctus, metus.</small>
+								<p class="call blockquote-footer">
+									Got Question? Call us 24/7<span style="color: #F7941D;">+0123
+											456 789</span>
+								</p>
+							</blockquote>
+
+						</div>
+						<!-- End Single Widget -->
+					</div>
+					<div class="col-lg-2 col-md-6 col-12">
+						<!-- Single Widget -->
+						<div class="single-footer links">
+							<h4>Information</h4>
+							<ul>
+								<li><a th:href="@{/coming-soon}">About Us</a></li>
+								<li><a th:href="@{/coming-soon}">Faq</a></li>
+								<li><a th:href="@{/coming-soon}">Terms & Conditions</a></li>
+								<li><a th:href="@{/coming-soon}">Contact Us</a></li>
+								<li><a th:href="@{/coming-soon}">Help</a></li>
+							</ul>
+						</div>
+						<!-- End Single Widget -->
+					</div>
+					<div class="col-lg-2 col-md-6 col-12">
+						<!-- Single Widget -->
+						<div class="single-footer links">
+							<h4>Customer Service</h4>
+							<ul>
+								<li><a th:href="@{/coming-soon}">Payment Methods</a></li>
+								<li><a th:href="@{/coming-soon}">Money-back</a></li>
+								<li><a th:href="@{/coming-soon}">Returns</a></li>
+								<li><a th:href="@{/coming-soon}">Shipping</a></li>
+								<li><a th:href="@{/coming-soon}">Privacy Policy</a></li>
+							</ul>
+						</div>
+						<!-- End Single Widget -->
+					</div>
+					<div class="col-lg-3 col-md-6 col-12">
+						<!-- Single Widget -->
+						<div class="single-footer social">
+							<h4>Get In Tuch</h4>
+							<!-- Single Widget -->
+							<div class="contact">
+								<ul>
+									<li>12 Nguyễn Văn Bảo, Phường 4,</li>
+									<li>Gò Vấp, Thành phố Hồ Chí Minh</li>
+									<li>nhom2www@gmail.com</li>
+									<li>+0123 456 789</li>
+								</ul>
+							</div>
+							<!-- End Single Widget -->
+							<ul>
+								<li><a th:href="@{/coming-soon}"><i class="ti-facebook"></i></a></li>
+								<li><a th:href="@{/coming-soon}"><i class="ti-twitter"></i></a></li>
+								<li><a th:href="@{/coming-soon}"><i class="ti-flickr"></i></a></li>
+								<li><a th:href="@{/coming-soon}"><i
+										class="ti-instagram"></i></a></li>
+							</ul>
+						</div>
+						<!-- End Single Widget -->
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End Footer Top -->
+		<div class="copyright">
+			<div class="container">
+				<div class="inner">
+					<div class="row">
+						<div class="col-lg-6 col-12">
+							<div class="left">
+								<p>© 2020 Copyright: Nhom2.com</p>
+							</div>
+						</div>
+						<div class="col-lg-6 col-12">
+							<div class="right">
+								<img th:src="@{/images/payments.png}" alt="#">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<div th:fragment="script">
+		<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+		<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+		<script th:src="@{/js/common.js}"></script>
+		<script type="text/javascript"
+			src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+	</div>
+	<script>
+    $(document).ready(function(){
+        $('.logo-slider').slick({
+      slidesToShow: 4,
+      slidesToScroll: 1,
+      dots: true,
+      arrows: true,
+      autoplayspeed: 2000,
+      infiniite: true,
+      responsive: [
+                          {
+                            breakpoint: 1200,
+                            settings: {
+                              slidesToShow: 2,
+                              slidesToScroll: 1
+                            }
+                          },
+                          {
+                            breakpoint: 992,
+                            settings: {
+                              slidesToShow: 3,
+                              slidesToScroll: 1
+                            }
+                          },
+                          {
+                            breakpoint: 768,
+                            settings: {
+                              slidesToShow: 2,
+                              slidesToScroll: 1
+                            }
+                          },
+                          {
+                            breakpoint: 576,
+                            settings: {
+                              slidesToShow: 1,
+                              slidesToScroll: 1
+                            }
+                          }
+                        ]
+  });
+  
+    })
+</script>
+</body>
+</html>

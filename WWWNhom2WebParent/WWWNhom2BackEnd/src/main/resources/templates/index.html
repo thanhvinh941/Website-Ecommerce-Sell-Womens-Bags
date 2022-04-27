@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeLeaf-extras-springsecurity5">
+<head th:replace="fragments :: page_head('Home - Shopme Admin', 'none')" />
+<body>
+
+	<div class="layout-wrapper layout-content-navbar">
+		<div class="layout-container">
+			<aside th:replace="fragments :: layout-menu('Dash')"></aside>
+			<div class="layout-page">
+				<nav th:replace="fragments :: layout-navbar"></nav>
+				<div class="content-wrapper">
+					<div class="container-xxl flex-grow-1 container-p-y">
+						<div class="row">
+							<div class="col-4">
+								<div class="card text-center">
+									<div class="card-header">USER</div>
+									<div class="card-body">
+										<h5 class="card-title">Special title treatment</h5>
+										<p class="card-text">With supporting text below as a
+											natural lead-in to additional content.</p>
+										<h5 class="card-title">[[${users}]]</h5>
+									</div>
+									
+								</div>
+							</div>
+							<div class="col-4">
+								<div class="card text-center">
+									<div class="card-header">Categories</div>
+									<div class="card-body">
+										<h5 class="card-title">Special title treatment</h5>
+										<p class="card-text">With supporting text below as a
+											natural lead-in to additional content.</p>
+										<h5 class="card-title">[[${categories}]]</h5>
+									</div>
+									
+								</div>
+							</div>
+							<div class="col-4">
+								<div class="card text-center">
+									<div class="card-header">Brands</div>
+									<div class="card-body">
+										<h5 class="card-title">Special title treatment</h5>
+										<p class="card-text">With supporting text below as a
+											natural lead-in to additional content.</p>
+										<h5 class="card-title">[[${brands}]]</h5>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row my-2">
+							<div class="col-4">
+								<div class="card text-center">
+									<div class="card-header">Products</div>
+									<div class="card-body">
+										<h5 class="card-title">Special title treatment</h5>
+										<p class="card-text">With supporting text below as a
+											natural lead-in to additional content.</p>
+										<h5 class="card-title">[[${products}]]</h5>
+									</div>
+
+								</div>
+							</div>
+							<div class="col-4">
+								<div class="card text-center">
+									<div class="card-header">Customers</div>
+									<div class="card-body">
+										<h5 class="card-title">Special title treatment</h5>
+										<p class="card-text">With supporting text below as a
+											natural lead-in to additional content.</p>
+										<h5 class="card-title">[[${customers}]]</h5>
+									</div>
+									
+								</div>
+							</div>
+							<div class="col-4">
+								<div class="card text-center">
+									<div class="card-header">Orders</div>
+									<div class="card-body">
+										<h5 class="card-title">Special title treatment</h5>
+										<p class="card-text">With supporting text below as a
+											natural lead-in to additional content.</p>
+										<h5 class="card-title">[[${orders}]]</h5>
+									</div>
+									
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<footer th:replace="fragments :: content-footer"></footer>
+				<div class="content-backdrop fade"></div>
+			</div>
+		</div>
+	</div>
+	<div class="layout-overlay layout-menu-toggle"></div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeLeaf-extras-springsecurity5">
+<head>
+<head th:replace="fragments :: page_head('Login - Sign up', 'tag')" />
+	<link rel="stylesheet" type="text/css" th:href="@{/css/login-css.css}" />
+	<script type="text/javascript" th:src="@{/js/login-js.js}"></script>
+</head>
+<body>
+	<div th:replace="fragments :: navbarNoCategory"></div>
+	<div class="container text-center" style="height: 80vh;">	
+		<div th:if="${message != null}">
+			<h3>[[${message }]]</h3>
+		</div>
+	</div>
+	<div th:replace="fragments :: footer"></div>
+	<div th:replace="fragments :: script"></div>
+</body>
+</html>

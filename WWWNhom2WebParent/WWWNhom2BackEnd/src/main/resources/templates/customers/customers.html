@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: page_head('Customers - Shopme Admin', 'none')" />
+<body>
+	<div class="layout-wrapper layout-content-navbar">
+		<div class="layout-container">
+			<aside th:replace="fragments :: layout-menu('Customers')"></aside>
+			<div class="layout-page">
+				<nav th:replace="fragments :: layout-navbar"></nav>
+				<div class="content-wrapper">
+					<div class="container-xxl flex-grow-1 container-p-y">
+						<div class="container-fluid">
+							<h3>Manage Customers</h3>
+							<div class="d-flex justify-content-between">
+								<div th:replace="fragments :: search_form('/customers/page/1')"></div>
+								<div>
+									<a th:href="@{/customers/export/csv}"><i class="text-secondary fas fa-file-csv fa-2x m-2"></i></a>
+								</div>
+							</div>
+							<div th:if="${message != null}" class="alert alert-success text-center">[[${message}]]</div>
+
+
+							<div class="card my-4">
+								<div class="table-responsive text-nowrap">
+									<table class="table table-hover">
+										<thead class="thead-dark">
+											<tr>
+												<th>
+													<a th:href="@{'/customers/page/'+${currentPage}+ '?sortField=id&sortDir=' + ${reverseSortDir}}" class="text-white">ID</a> 
+													<span th:if="${sortField == 'id'}" th:class="${reverseSortDir == 'desc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}"></span>
+												</th>
+												<th>Customer Image</th>
+												<th>
+													<a th:href="@{'/customers/page/'+${currentPage}+ '?sortField=phoneNumber&sortDir=' + ${reverseSortDir}}" class="text-white">Phone number</a> 
+													<span th:if="${sortField == 'phoneNumber'}" th:class="${reverseSortDir == 'desc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}"></span>
+												</th>
+												<th>
+													<a th:href="@{'/customers/page/'+${currentPage}+ '?sortField=email&sortDir=' + ${reverseSortDir}}" class="text-white">Email</a> 
+													<span th:if="${sortField == 'email'}" th:class="${reverseSortDir == 'desc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}"></span>
+												</th>
+												<th>
+													<a th:href="@{'/customers/page/'+${currentPage}+ '?sortField=firstname&sortDir=' + ${reverseSortDir}}" class="text-white">First Name</a> 
+													<span th:if="${sortField == 'firstname'}" th:class="${reverseSortDir == 'desc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}"></span>
+												</th>
+												<th>
+													<a th:href="@{'/customers/page/'+${currentPage}+ '?sortField=lastname&sortDir=' + ${reverseSortDir}}" class="text-white">Last Name</a> 
+													<span th:if="${sortField == 'lastname'}" th:class="${reverseSortDir == 'desc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}"></span>
+												</th>
+												<th>Enabled</th>
+											</tr>
+										</thead>
+										<tbody class="table-border-bottom-0">
+											<tr th:each="cus : ${listCustomers}">
+												<td class="text-center align-middle">[[${cus.id}]]</td>
+												<td>
+													<ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
+														<li data-bs-toggle="tooltip" data-popup="tooltip-custom"
+																data-bs-placement="top" class="avatar avatar-xs pull-up"
+																title="" data-bs-original-title="Lilian Fuller">
+															<span th:if="${cus.photos == null}" class="fas fa-portrait fa-4x icon-dark"></span>
+															<img th:if="${cus.photos != null}" th:src="@{${cus.getPhotosImagesPath}}" class="rounded-circle" />
+														</li>
+													</ul>
+												</td>
+												<td class="text-center align-middle">[[${cus.phoneNumber}]]</td>
+												<td class="text-center align-middle">[[${cus.email}]]</td>
+												<td class="text-center align-middle">[[${cus.firstname}]]</td>
+												<td class="text-center align-middle">[[${cus.lastname}]]</td>
+												<td class="text-center align-middle">
+													<a th:if="${cus.enabled == true}"
+														class="fas fa-check-circle fa-2x icon-green"
+														th:href="@{'/customers/' + ${cus.id} +'/enabled/false'}">
+													</a>
+													<a
+														th:if="${cus.enabled == false}"
+														class="fas fa-circle fa-2x icon-dark"
+														th:href="@{'/customers/' + ${cus.id} +'/enabled/true'}">
+													</a>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+							<div th:replace="fragments :: pagination('/customers','Customers')"></div>
+						</div>
+					</div>
+					<footer th:replace="fragments :: content-footer"></footer>
+					<div class="content-backdrop fade"></div>
+				</div>
+			</div>
+		</div>
+		<div class="layout-overlay layout-menu-toggle"></div>
+	</div>
+
+	<div class="modal fade text-center" id="deleteConfirmModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="modalTitle">Delete Confirmation</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					<span id="confirmText"></span>
+				</div>
+				<div class="modal-footer">
+					<a class="btn btn-success" href="" id="yesBtn">Yes</a>
+					<button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" th:src="@{/js/common_list.js}"></script>
+	<script type="text/javascript">
+	moduleURL = "[[@{/customers}]]";
+	$(document).ready(function(){
+		$(".link-delete").on("click",function(e){
+			e.preventDefault();
+			showDeleteConfirModal($(this), 'customer');
+		});	 
+	});
+</script>
+</body>
+</html>

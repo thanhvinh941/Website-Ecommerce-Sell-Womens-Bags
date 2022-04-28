@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="https://www.thymeleaf.org/thymeLeaf-extras-springsecurity5">
-<head th:replace="fragments :: page_head('Quản lý đơn hàng', 'none')" />
+<head th:replace="fragments :: page_head('Quáº£n lĂ½ Ä‘Æ¡n hĂ ng', 'none')" />
 <body>
 	<div th:replace="fragments :: navbarNoCategory"></div>
 	<div class="breadcrumbs"
-		th:replace="fragments :: breadcrumbs('Quản lý đơn hàng','/sales/order/history')">
+		th:replace="fragments :: breadcrumbs('Quáº£n lĂ½ Ä‘Æ¡n hĂ ng','/sales/order/history')">
 	</div>
 	<div class="d-flex my-4">
 		<aside th:replace="fragments :: accountStyledSideBar"></aside>
@@ -16,9 +16,9 @@
 						<div class="d-flex align-items-center p-2 border-bottom justify-content-between">
 							<div class="d-flex align-items-center">
 								<i class="fa fa-truck" aria-hidden="true"></i>&ensp;
-								<p>Giao hàng thành công</p>
+								<p>Giao hĂ ng thĂ nh cĂ´ng</p>
 							</div>
-							<div>Ngày lập đơn:[[${order.updatedTime}]]</div>
+							<div>NgĂ y láº­p Ä‘Æ¡n:[[${order.updatedTime}]]</div>
 						</div>
 						<div class="p-2">
 							<th:block th:each="od : ${order.listOrderDetail}">
@@ -34,18 +34,18 @@
 										</div>
 									</div>
 									<div>
-										Số lượng :[[${od.quantity}]]
+										Sá»‘ lÆ°á»£ng :[[${od.quantity}]]
 										<br>									
-										Thành tiền: [[${od.quantity*od.product.discountPrice}]]								
+										ThĂ nh tiá»�n: [[${od.quantity*od.product.discountPrice}]]								
 									</div>
 								</div>
 							</th:block>
 						</div>
 						<div class="d-flex flex-column align-items-end p-2 border-bottom">
-							<div>Tổng tiền : [[${order.total}]]</div>
+							<div>Tá»•ng tiá»�n : [[${order.total}]]</div>
 							<div>
-								<a th:href="@{/shop-grid}">Mua lại</a>
-								<a th:href="@{'/customer/od/'+${order.id}}">Xem chi tiết</a> 
+								<a th:href="@{/shop-grid}">Mua láº¡i</a>
+								<a th:href="@{'/customer/od/'+${order.id}}">Xem chi tiáº¿t</a> 
 							</div>
 						</div>
 					</div>
@@ -55,5 +55,22 @@
 	</div>
 	<div th:replace="fragments :: footer"></div>
 	<div th:replace="fragments :: script"></div>
+	<script type="text/javascript">
+	viewCart = "[[@{/customers/view-cart}]]";
+	updateToCart = "[[@{/update-to-cart}]]";
+	getCart = "[[@{/customers/get_cart}]]";
+	gmailAuthen = "[[@{/customers/get_email_authen}]]";
+	productDetail = "[[@{/p}]]";
+	deleteToCart = "[[@{/delete-to-cart}]]";
+	contextPath = "[[@{}]]";
+	$(document).ready(function(){
+		$(".link-detail").on("click", function(e){
+			e.preventDefault();
+			linkDetailURL = $(this).attr("href");
+			$("#detailModal").modal("show").find(".modal-content").load(linkDetailURL);
+		});
+    });
+    
+	</script>
 </body>
 </html>

@@ -46,9 +46,9 @@ public class Product {
 	@Column(name = "in_stock")
 	private boolean inStock;
 
-	private float cost;
+	private double cost;
 
-	private float price;
+	private double price;
 	@Column(name = "discount_percent")
 	private float discountPercent;
 
@@ -163,19 +163,19 @@ public class Product {
 		this.inStock = inStock;
 	}
 
-	public float getCost() {
+	public double getCost() {
 		return cost;
 	}
 
-	public void setCost(float cost) {
+	public void setCost(double cost) {
 		this.cost = cost;
 	}
 
-	public float getPrice() {
+	public double getPrice() {
 		return price;
 	}
 
-	public void setPrice(float price) {
+	public void setPrice(double price) {
 		this.price = price;
 	}
 
@@ -256,7 +256,7 @@ public class Product {
 	
 	@Transactional
 	public String getMainImagePathForApiCall() {
-		return "Shopme/products-images/" + this.id + "/" + this.mainImage;
+		return "Nhom2/products-images/" + this.id + "/" + this.mainImage;
 	}
 
 	@Override
@@ -298,7 +298,7 @@ public class Product {
 	}
 
 	@Transactional
-	public float getDiscountPrice() {
+	public double getDiscountPrice() {
 		if(discountPercent > 0) {
 			return price * (100-discountPercent) /100;
 		}

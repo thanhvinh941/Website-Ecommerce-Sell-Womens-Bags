@@ -53,33 +53,40 @@ function customDropdownMenu() {
 }
 
 function loadListCartCus() {
-	contextPath = "http://localhost/Nhom2/customers/get_email_authen";
 	var timeStart = $.now();
-	$.get(contextPath, function(data) {
-		contextPathCart = "http://localhost/Nhom2/customers/get_cart/" + data;
+	$.get(gmailAuthen, function(data) {
+		contextPathCart = getCart + "/" + data;
 		$.get(contextPathCart, function(listCart) {
 			let total = 0;
 			let htmlListItem = "";
 			for (var i = 0; i < listCart.length; i++) {
-				var imagePath = "/Nhom2" + listCart[i].image;
+				var imagePath = contextPath + listCart[i].image;
 				var htmlItem = `
 				  				<li>
-					  				<a href="/Nhom2/delete-to-cart/${listCart[i].id}" class="remove" title="Remove this item">
+					  				<a href="${deleteToCart}/${listCart[i].id}" 
+					  					class="remove" title="Remove this item">
 					  					<i class="fa fa-remove"></i>
 					  				</a>
-					  				<a class="cart-img" href="/Nhom2/p/${listCart[i].alias}">
+					  				<a class="cart-img" 
+					  					href="${productDetail}/${listCart[i].alias}">
 					  					<img src="${imagePath}" alt="#">
 					  				</a>
 									<h4>
-										<a href="/Nhom2/p/${listCart[i].alias}">${listCart[i].name}</a>
+										<a href="${productDetail}/${listCart[i].alias}">
+											${listCart[i].name}
+										</a>
 									</h4>
 									<p class="quantity">
 										<span>
-											<a class="quantity-button" href="/Nhom2/update-to-cart/${listCart[i].id}/${listCart[i].quantity}?status=down">
+											<a class="quantity-button" 
+												href="${updateToCart}/${listCart[i].id}/${listCart[i].quantity}?status=down">
 												<i class="fa fa-minus-circle"></i>
 											</a>
-											&nbsp;&nbsp;<span class="quantityField">${listCart[i].quantity}</span>&nbsp;&nbsp;
-											<a class="quantity-button" href="/Nhom2/update-to-cart/${listCart[i].id}/${listCart[i].quantity}?status=up">
+											&nbsp;&nbsp;
+											<span class="quantityField">${listCart[i].quantity}</span>
+											&nbsp;&nbsp;
+											<a class="quantity-button" 
+												href="${updateToCart}/${listCart[i].id}/${listCart[i].quantity}?status=up">
 												<i class="fa fa-plus-circle"></i>
 											</a>
 										</span>
@@ -93,7 +100,7 @@ function loadListCartCus() {
 
 			document.getElementById('dropdown-cart-header').innerHTML = `
 							<span>${listCart.length} Items</span>
-							<a href="/Nhom2/customers/view-cart">View Cart</a>
+							<a href="${viewCart}">View Cart</a>
 						`;
 			document.getElementById('shopping-list').innerHTML = htmlListItem;
 			document.getElementById('total').innerHTML = `

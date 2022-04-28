@@ -729,6 +729,13 @@
 		</div>
 	</footer>
 	<div th:fragment="script">
+		viewCart = "[[@{/customers/view-cart}]]";
+		updateToCart = "[[@{/update-to-cart}]]";
+		getCart = "[[@{/customers/get_cart}]]";
+		gmailAuthen = "[[@{/customers/get_email_authen}]]";
+		productDetail = "[[@{/p}]]";
+		deleteToCart = "[[@{/delete-to-cart}]]";
+		contextPath = "[[@{/}]]";
 		<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
 		<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 		<script th:src="@{/js/common.js}"></script>

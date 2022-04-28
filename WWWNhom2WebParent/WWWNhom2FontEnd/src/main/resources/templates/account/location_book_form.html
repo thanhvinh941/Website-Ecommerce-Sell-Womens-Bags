@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="https://www.thymeleaf.org/thymeLeaf-extras-springsecurity5">
-<head th:replace="fragments :: page_head('Chỉnh sửa địa chỉ', 'none')" />
+<head th:replace="fragments :: page_head('Chá»‰nh sá»­a Ä‘á»‹a chá»‰', 'none')" />
 <body>
 	<div th:replace="fragments :: navbarNoCategory"></div>
 	<div class="breadcrumbs"
-		th:replace="fragments :: breadcrumbs('Chỉnh sửa địa chỉ','/customer/address/edit/' + ${addressId})">
+		th:replace="fragments :: breadcrumbs('Chá»‰nh sá»­a Ä‘á»‹a chá»‰','/customer/address/edit/' + ${addressId})">
 	</div>
 	<div class="d-flex">
 		<aside th:replace="fragments :: accountStyledSideBar"></aside>
 		<section style="flex: 1; margin-right: 10px;">
-			<div>Chỉnh sửa địa chỉ</div>
+			<div>Chá»‰nh sá»­a Ä‘á»‹a chá»‰</div>
 			<div>
 				<form th:action="@{/customer/address/save}" method="post"
 					th:object="${address}">
 					<input type="hidden" th:field="*{id}">
 					<div class="form-group row">
-						<label class="col-sm-2 col-form-label">Tỉnh/Thành
-							Phố:</label>
+						<label class="col-sm-2 col-form-label">Tá»‰nh/ThĂ nh
+							Phá»‘:</label>
 						<div class="col-sm-10">
 							<select class="form-control"
 								th:field="*{tinhThanhPho}" required>
@@ -28,7 +28,7 @@
 						</div>
 					</div>
 					<div class="form-group row">
-						<label class="col-sm-2 col-form-label">Quận Huyện:</label>
+						<label class="col-sm-2 col-form-label">Quáº­n Huyá»‡n:</label>
 						<div class="col-sm-10">
 							<select class="form-control" th:field="*{quanHuyen}" required>
 								<th:block th:each="quanHuyen : ${quanHuyens}">
@@ -38,7 +38,7 @@
 						</div>
 					</div>
 					<div class="form-group row">
-						<label class="col-sm-2 col-form-label">Phường xã:</label>
+						<label class="col-sm-2 col-form-label">PhÆ°á»�ng xĂ£:</label>
 						<div class="col-sm-10">
 							<select class="form-control" th:field="*{xaPhuongThiTran}" required>
 								<th:block th:each="xaPhuongThiTran : ${xaPhuongThiTrans}">
@@ -48,7 +48,7 @@
 						</div>
 					</div>
 					<div class="form-group row">
-						<label class="col-sm-2 col-form-label">Đại chỉ:</label>
+						<label class="col-sm-2 col-form-label">Ä�áº¡i chá»‰:</label>
 						<div class="col-sm-10">
 							<textarea class="form-control" rows="5" cols="10"
 								th:field="*{addressline}"></textarea>
@@ -56,17 +56,17 @@
 					</div>
 					<div class="form-group row" th:if="${!address.enabled}">
 						<div class="col-sm-10">
-							<input type="checkbox" th:field="*{enabled}" name="enabled">Đặt làm địa chỉ mặc định
+							<input type="checkbox" th:field="*{enabled}" name="enabled">Ä�áº·t lĂ m Ä‘á»‹a chá»‰ máº·c Ä‘á»‹nh
 						</div>
 					</div>
 					<div class="form-group row" th:if="${address.enabled}">
 						<div class="col-sm-10">
-							<input type="checkbox" hidden="true" th:field="*{enabled}" name="enabled" value="Đặt làm địa chỉ mặc định">
+							<input type="checkbox" hidden="true" th:field="*{enabled}" name="enabled" value="Ä�áº·t lĂ m Ä‘á»‹a chá»‰ máº·c Ä‘á»‹nh">
 						</div>
 					</div>
 					<div class="form-group row">
 						<div class="col-sm-10">
-							<input type="submit" value="Lưu địa chỉ">
+							<input type="submit" value="LÆ°u Ä‘á»‹a chá»‰">
 						</div>
 					</div>
 				</form>
@@ -76,6 +76,13 @@
 	<div th:replace="fragments :: footer"></div>
 	<div th:replace="fragments :: script"></div>
 	<script type="text/javascript">
+		viewCart = "[[@{/customers/view-cart}]]";
+		updateToCart = "[[@{/update-to-cart}]]";
+		getCart = "[[@{/customers/get_cart}]]";
+		gmailAuthen = "[[@{/customers/get_email_authen}]]";
+		productDetail = "[[@{/p}]]";
+		deleteToCart = "[[@{/delete-to-cart}]]";
+		contextPath = "[[@{/}]]";
 		addressURL="[[@{/address}]]";
 		dropdownTinhThanhPhos = $("#tinhThanhPho");
 		dropdownQuanHuyens = $("#quanHuyen");

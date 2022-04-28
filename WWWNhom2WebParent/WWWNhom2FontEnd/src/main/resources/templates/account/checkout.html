@@ -44,8 +44,8 @@
 			</th:block>
 			<th:block th:if="${lisCartItems.size() == 0}">
 				<div class="p-5 text-center">
-					Giỏ hàng hiện tại không có sản phẩm. <br> Hãy chọn mua thêm
-					sản phẩm mà bạn ưng ý để bắt đầu thanh toán nào
+					Giá»� hĂ ng hiá»‡n táº¡i khĂ´ng cĂ³ sáº£n pháº©m. <br> HĂ£y chá»�n mua thĂªm
+					sáº£n pháº©m mĂ  báº¡n Æ°ng Ă½ Ä‘á»ƒ báº¯t Ä‘áº§u thanh toĂ¡n nĂ o
 				</div>
 			</th:block>
 		</div>
@@ -78,7 +78,7 @@
 									<input class="form-check-input" type="radio"
 										name="radio_default" checked>
 									<label class="form-check-label">
-										Thanh toán khi nhận hàng </label>
+										Thanh toĂ¡n khi nháº­n hĂ ng </label>
 								</div>
 							</div>
 						</div>
@@ -102,5 +102,22 @@
 
 	<div th:replace="fragments :: footer"></div>
 	<div th:replace="fragments :: script"></div>
+	<script type="text/javascript">
+	viewCart = "[[@{/customers/view-cart}]]";
+	updateToCart = "[[@{/update-to-cart}]]";
+	getCart = "[[@{/customers/get_cart}]]";
+	gmailAuthen = "[[@{/customers/get_email_authen}]]";
+	productDetail = "[[@{/p}]]";
+	deleteToCart = "[[@{/delete-to-cart}]]";
+	contextPath = "[[@{/}]]";
+	$(document).ready(function(){
+		$(".link-detail").on("click", function(e){
+			e.preventDefault();
+			linkDetailURL = $(this).attr("href");
+			$("#detailModal").modal("show").find(".modal-content").load(linkDetailURL);
+		});
+    });
+    
+	</script>
 </body>
 </html>

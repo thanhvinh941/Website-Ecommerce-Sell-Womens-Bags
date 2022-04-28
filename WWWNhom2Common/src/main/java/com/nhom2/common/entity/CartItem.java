@@ -63,7 +63,7 @@ public class CartItem {
 	}
 
 	@Transactional
-	public float getTotal() {
+	public double getTotal() {
 		return this.product.getDiscountPrice()*quantity;
 	}
 	

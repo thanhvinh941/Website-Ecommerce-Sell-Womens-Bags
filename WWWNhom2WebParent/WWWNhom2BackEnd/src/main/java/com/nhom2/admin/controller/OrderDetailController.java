@@ -16,11 +16,7 @@ public class OrderDetailController {
 	
 	@GetMapping("/report/product-top-10")
 	public List<Object[]> getTopTenProductByYearMounth(){
-		int year=2022;
-		int mounth1 = 1;
-		int mounth2 = 5;
-		
-		return detailService.getTopTenProductByYearMounth(year,mounth1,mounth2);
+		return detailService.getTopTenProductByYearMounth();
 	}
 	
 }

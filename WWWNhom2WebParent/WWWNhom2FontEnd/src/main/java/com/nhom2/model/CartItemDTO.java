@@ -5,13 +5,13 @@ public class CartItemDTO {
 	private String name;
 	private String image;
 	private String alias;
-	private float price;
-	private float discountPercent;
-	private float discountPrice;
+	private double price;
+	private double discountPercent;
+	private double discountPrice;
 	private int quantity;
 
-	public CartItemDTO(Integer id, String name, String image, String alias, float price, float discountPercent,
-			float discountPrice, int quantity) {
+	public CartItemDTO(Integer id, String name, String image, String alias, double price, double discountPercent,
+			double discountPrice, int quantity) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -31,27 +31,27 @@ public class CartItemDTO {
 		this.id = id;
 	}
 
-	public float getDiscountPercent() {
+	public double getDiscountPercent() {
 		return discountPercent;
 	}
 
-	public void setDiscountPercent(float discountPercent) {
+	public void setDiscountPercent(double discountPercent) {
 		this.discountPercent = discountPercent;
 	}
 
-	public float getDiscountPrice() {
+	public double getDiscountPrice() {
 		return discountPrice;
 	}
 
-	public void setDiscountPrice(float discountPrice) {
+	public void setDiscountPrice(double discountPrice) {
 		this.discountPrice = discountPrice;
 	}
 
-	public float getPrice() {
+	public double getPrice() {
 		return price;
 	}
 
-	public void setPrice(float price) {
+	public void setPrice(double price) {
 		this.price = price;
 	}
 

@@ -44,12 +44,13 @@
 					<div>
 						List price: <span th:if="${productDetail.discountPercent <= 0}">$[[${productDetail.price}]]</span>
 						<del th:if="${productDetail.discountPercent > 0}">
-							<span>$[[${productDetail.price}]]</span>
+							<span th:text="${#numbers.formatCurrency(productDetail.price)}">
+							</span>
 						</del>
 					</div>
 					<div class="product-price"
 						th:if="${productDetail.discountPercent > 0}">
-						Price: <span style="font-size: larger; color: darkred;">$[[${productDetail.getDiscountPrice}]]</span>
+						Price: <span style="font-size: larger; color: darkred;" th:text="${#numbers.formatCurrency(productDetail.getDiscountPrice)}"></span>
 						([[${productDetail.discountPercent}]] % off)
 					</div>
 					<div>
@@ -61,8 +62,7 @@
 						<div class="quantity my-2">
 							<span th:if="${productDetail.inStock}" class="text-success">
 								<b>In Stock</b>
-							</span>
-							<span th:unless="${productDetail.inStock}" class="text-danger">
+							</span> <span th:unless="${productDetail.inStock}" class="text-danger">
 								<b>Out Stock</b>
 							</span>
 							<div th:if="${productDetail.inStock}" class="input-group">
@@ -84,7 +84,8 @@
 							<!--/ End Input Order -->
 						</div>
 						<div th:if="${productDetail.inStock}" class="add-to-cart">
-							<a th:href="@{'/add-to-cart/' + ${productDetail.id} + '/1' }" class="btn px-4">Add to cart</a>
+							<a th:href="@{'/add-to-cart/' + ${productDetail.id} + '/1' }"
+								class="btn px-4">Add to cart</a>
 						</div>
 					</div>
 				</div>

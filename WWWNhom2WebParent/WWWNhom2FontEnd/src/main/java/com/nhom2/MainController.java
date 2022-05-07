@@ -187,14 +187,6 @@ public class MainController {
 		return "redirect:/" + (verified ? "login" : "login?verify=flase");
 	}
 	
-	@GetMapping("/account")
-	public String viewsDetail(@AuthenticationPrincipal CustomerDetail loggedCus, Model model) {
-		String email = loggedCus.getUsername();
-		Customer customer = customerService.getCusByEmail(email);
-		model.addAttribute("customer", customer);	
-		return "account/account";
-	}
-	
 	private void sendVerificationEmail(HttpServletRequest request, Customer customer) throws UnsupportedEncodingException, MessagingException {
 		JavaMailSenderImpl mailSender = Utility.prepareMailSender();
 		String toAddress = customer.getEmail();

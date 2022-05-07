@@ -204,11 +204,6 @@
 															<a class="link-detail"
 																th:href="@{'/p/detail-modal/' + ${product.id}}"> <i
 																class=" ti-eye"></i> <span>Quick Shop</span>
-															</a> <a title="Wishlist" href="#"> <i class=" ti-heart "></i>
-																<span>Add to Wishlist</span>
-															</a> <a title="Compare" href="#"> <i
-																class="ti-bar-chart-alt"></i> <span>Add to
-																	Compare</span>
 															</a>
 														</div>
 														<div class="product-action-2">
@@ -229,9 +224,10 @@
 													<div class="product-price"
 														th:if="${product.discountPercent > 0}">
 														<span
-															style="font-size: larger; color: darkred; margin-right: 10px;">$[[${product.getDiscountPrice}]]</span>
-														<del>
-															<span>$[[${product.price}]]</span>
+															style="font-size: larger; color: darkred; margin-right: 10px;" th:text="${#numbers.formatCurrency(product.getDiscountPrice)}">
+															</span>
+														<del th:text="${#numbers.formatCurrency(product.price)}">
+															
 														</del>
 													</div>
 												</div>
@@ -306,10 +302,6 @@
 								<a class="link-detail"
 									th:href="@{'/p/detail-modal/' + ${product.id}}"> <i
 									class=" ti-eye"></i> <span>Quick Shop</span>
-								</a> <a title="Wishlist" href="#"> <i class=" ti-heart "></i> <span>Add
-										to Wishlist</span>
-								</a> <a title="Compare" href="#"> <i class="ti-bar-chart-alt"></i>
-									<span>Add to Compare</span>
 								</a>
 							</div>
 							<div class="product-action-2">

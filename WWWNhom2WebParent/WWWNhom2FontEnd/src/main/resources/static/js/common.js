@@ -12,6 +12,11 @@ $(document).ready(function() {
 	
 });
 
+var formatter = new Intl.NumberFormat('vi-VI', {
+  style: 'currency',
+  currency: 'VND',
+});
+
 function urlParam(name){
 	    var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
 	    if (results==null) {
@@ -58,9 +63,10 @@ function loadListCartCus() {
 		contextPathCart = getCart + "/" + data;
 		$.get(contextPathCart, function(listCart) {
 			let total = 0;
+			let listCartElement = 0;
 			let htmlListItem = "";
 			for (var i = 0; i < listCart.length; i++) {
-				var imagePath = contextPath + listCart[i].image;
+				var imagePath = "/Nhom2" + listCart[i].image;
 				var htmlItem = `
 				  				<li>
 					  				<a href="${deleteToCart}/${listCart[i].id}" 
@@ -91,22 +97,23 @@ function loadListCartCus() {
 											</a>
 										</span>
 										&nbsp;&nbsp;-&nbsp;&nbsp;
-										<span class="amount">$${listCart[i].discountPrice * listCart[i].quantity}</span>
+										<span class="amount">${formatter.format(listCart[i].discountPrice * listCart[i].quantity)}</span>
 									</p>
 								</li>`;
 				htmlListItem += htmlItem;
 				total += listCart[i].discountPrice * listCart[i].quantity;
+				listCartElement += listCart[i].quantity;
 			}
 
 			document.getElementById('dropdown-cart-header').innerHTML = `
-							<span>${listCart.length} Items</span>
+							<span>${listCartElement} Items</span>
 							<a href="${viewCart}">View Cart</a>
 						`;
 			document.getElementById('shopping-list').innerHTML = htmlListItem;
 			document.getElementById('total').innerHTML = `
-							<span>Total</span> <span class="total-amount">$${total}</span>
+							<span>Total</span> <span class="total-amount">${formatter.format(total)}</span>
 						`;
-			document.getElementById('total-count').innerHTML = listCart.length;
+			document.getElementById('total-count').innerHTML = listCartElement;
 		});
 	})
 	var timeEnd = $.now();

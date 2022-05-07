@@ -37,7 +37,8 @@
 						<span><i class="fa fa-times-circle-o text-danger"></i> out stock</span>
 					</div>
 				</div>
-				<h3>[[${product.cost}]]</h3>
+				<h3 th:text="${#numbers.formatCurrency(product.getDiscountPrice)}">
+				</h3>
 				<div th:utext="${product.fullDescription}"
 					class="quickview-peragraph" style="min-height: 200px;"></div>
 			</div>
@@ -64,9 +65,6 @@
 			<div th:if="${product.inStock}" class="add-to-cart">
 				<a th:href="@{'/add-to-cart/' + ${product.id} + '/1' }" class="btn">
 					Add to cart
-				</a>
-				<a href="#" class="btn min">
-					<i class="ti-heart"></i>
 				</a>
 			</div>
 			<div class="default-social m-3">

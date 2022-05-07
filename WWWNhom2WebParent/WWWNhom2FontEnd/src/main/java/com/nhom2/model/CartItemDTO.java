@@ -5,13 +5,13 @@ public class CartItemDTO {
 	private String name;
 	private String image;
 	private String alias;
-	private double price;
-	private double discountPercent;
-	private double discountPrice;
+	private long price;
+	private long discountPercent;
+	private long discountPrice;
 	private int quantity;
 
-	public CartItemDTO(Integer id, String name, String image, String alias, double price, double discountPercent,
-			double discountPrice, int quantity) {
+	public CartItemDTO(Integer id, String name, String image, String alias, long price, long discountPercent,
+			long discountPrice, int quantity) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -31,27 +31,27 @@ public class CartItemDTO {
 		this.id = id;
 	}
 
-	public double getDiscountPercent() {
+	public long getDiscountPercent() {
 		return discountPercent;
 	}
 
-	public void setDiscountPercent(double discountPercent) {
+	public void setDiscountPercent(long discountPercent) {
 		this.discountPercent = discountPercent;
 	}
 
-	public double getDiscountPrice() {
+	public long getDiscountPrice() {
 		return discountPrice;
 	}
 
-	public void setDiscountPrice(double discountPrice) {
+	public void setDiscountPrice(long discountPrice) {
 		this.discountPrice = discountPrice;
 	}
 
-	public double getPrice() {
+	public long getPrice() {
 		return price;
 	}
 
-	public void setPrice(double price) {
+	public void setPrice(long price) {
 		this.price = price;
 	}
 

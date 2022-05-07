@@ -63,8 +63,8 @@ public class CartItem {
 	}
 
 	@Transactional
-	public double getTotal() {
-		return this.product.getDiscountPrice()*quantity;
+	public long getTotal() {
+		return (long) this.product.getDiscountPrice()*quantity;
 	}
 	
 	@Override

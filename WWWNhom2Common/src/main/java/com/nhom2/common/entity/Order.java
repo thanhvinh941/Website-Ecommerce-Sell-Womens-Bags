@@ -89,12 +89,12 @@ public class Order {
 		this.shipping = shipping;
 	}
 
-	public int getTotal() {
-		int total = 0;
+	public long getTotal() {
+		long total = 0;
 		for(OrderDetail od :listOrderDetail) {
 			total += (od.getQuantity()*od.getProduct().getDiscountPrice());
 		}
-		return total;
+		return (long) total;
 	}
 	
 	@Override

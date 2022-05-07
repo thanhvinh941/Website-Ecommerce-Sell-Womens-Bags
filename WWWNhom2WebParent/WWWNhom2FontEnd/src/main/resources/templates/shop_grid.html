@@ -32,10 +32,6 @@
 												<a class="link-detail"
 													th:href="@{'/p/detail-modal/' + ${product.id}}"> <i
 													class=" ti-eye"></i> <span>Quick Shop</span>
-												</a> <a title="Wishlist" href="#"> <i class=" ti-heart "></i>
-													<span>Add to Wishlist</span>
-												</a> <a title="Compare" href="#"> <i
-													class="ti-bar-chart-alt"></i> <span>Add to Compare</span>
 												</a>
 											</div>
 											<div class="product-action-2">
@@ -48,14 +44,13 @@
 											<a th:href="@{'/p/' + ${product.alias}}">[[${product.name}]]</a>
 										</h3>
 										<div class="product-price"
-											th:if="${product.discountPercent <= 0}">
-											<span>$[[${product.price}]]</span>
-										</div>
-										<div class="product-price"
 											th:if="${product.discountPercent > 0}">
-											<span style="font-size: larger; color: darkred;">$[[${product.getDiscountPrice}]]</span>
-											<del>
-												<span>$[[${product.price}]]</span>
+											<span
+												style="font-size: larger; color: darkred; margin-right: 10px;"
+												th:text="${#numbers.formatCurrency(product.getDiscountPrice)}">
+											</span>
+											<del th:text="${#numbers.formatCurrency(product.price)}">
+
 											</del>
 										</div>
 									</div>
@@ -77,6 +72,12 @@
 	<div th:replace="fragments :: footer"></div>
 	<div th:replace="fragments :: script"></div>
 	<script type="text/javascript">
+	viewCart = "[[@{/customers/view-cart}]]";
+		updateToCart = "[[@{/update-to-cart}]]";
+		getCart = "[[@{/customers/get_cart}]]";
+		gmailAuthen = "[[@{/customers/get_email_authen}]]";
+		productDetail = "[[@{/p}]]";
+		deleteToCart = "[[@{/delete-to-cart}]]";
 	$(document).ready(function(){	 
 		$(".link-detail").on("click", function(e){
 			e.preventDefault();

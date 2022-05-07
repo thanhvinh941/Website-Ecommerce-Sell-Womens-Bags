@@ -55,7 +55,7 @@ public class CustomerController {
 	public String customerCheckout(
 			HttpServletRequest request, 
 			Model model) {
-		float subTotal=0;float shiping=0;
+		long subTotal=0; long shiping=0;
 		String email = customerService.getEmailOfAuthenticatedCustomer(request);
 		Customer customer = customerService.getCusByEmail(email);
 		List<CartItemDTO> lisCartItems = cartItemService.getListCartByCusId(customer.getId());
@@ -69,7 +69,7 @@ public class CustomerController {
 		model.addAttribute("order", order);
 		model.addAttribute("subTotal", subTotal);
 		model.addAttribute("shiping", shiping);
-		model.addAttribute("total", subTotal+shiping);
+		model.addAttribute("total", (long)(subTotal + shiping));
 		model.addAttribute("address", address.getAddressline());
 		model.addAttribute("phoneNumber", customer.getPhoneNumber());
 		return "/account/checkout";

@@ -46,11 +46,11 @@ public class Product {
 	@Column(name = "in_stock")
 	private boolean inStock;
 
-	private double cost;
+	private long cost;
 
-	private double price;
+	private long price;
 	@Column(name = "discount_percent")
-	private float discountPercent;
+	private long discountPercent;
 
 	private float length;
 	private float width;
@@ -163,27 +163,27 @@ public class Product {
 		this.inStock = inStock;
 	}
 
-	public double getCost() {
+	public long getCost() {
 		return cost;
 	}
 
-	public void setCost(double cost) {
+	public void setCost(long cost) {
 		this.cost = cost;
 	}
 
-	public double getPrice() {
+	public long getPrice() {
 		return price;
 	}
 
-	public void setPrice(double price) {
+	public void setPrice(long price) {
 		this.price = price;
 	}
 
-	public float getDiscountPercent() {
+	public long getDiscountPercent() {
 		return discountPercent;
 	}
 
-	public void setDiscountPercent(float discountPercent) {
+	public void setDiscountPercent(long discountPercent) {
 		this.discountPercent = discountPercent;
 	}
 
@@ -298,10 +298,10 @@ public class Product {
 	}
 
 	@Transactional
-	public double getDiscountPrice() {
+	public long getDiscountPrice() {
 		if(discountPercent > 0) {
 			return price * (100-discountPercent) /100;
 		}
-		return this.price;
+		return (long) this.price;
 	}
 }

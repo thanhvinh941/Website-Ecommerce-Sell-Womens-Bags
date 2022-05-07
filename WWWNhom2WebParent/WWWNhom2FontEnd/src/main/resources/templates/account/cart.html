@@ -29,8 +29,10 @@
 											th:href="@{'/update-to-cart/' + ${cartItem.id} + '/' + ${cartItem.quantity} + '?status=up'}">
 												<i class="fa fa-plus-circle"></i>
 										</a>
-										</span> &nbsp;&nbsp;-&nbsp;&nbsp; <span class="amount">$[[${cartItem.discountPrice
-											* cartItem.quantity}]]</span>
+										</span> &nbsp;&nbsp;-&nbsp;&nbsp; <span class="amount"
+											th:text="${#numbers.formatCurrency(cartItem.discountPrice *
+											cartItem.quantity)}">
+										</span>
 									</p>
 
 								</div>
@@ -44,12 +46,13 @@
 			</th:block>
 			<th:block th:if="${lisCartItems.size() == 0}">
 				<div class="p-5 text-center">
-					Giá»� hĂ ng hiá»‡n táº¡i khĂ´ng cĂ³ sáº£n pháº©m. <br> HĂ£y chá»�n mua thĂªm
-					sáº£n pháº©m mĂ  báº¡n Æ°ng Ă½ Ä‘á»ƒ báº¯t Ä‘áº§u thanh toĂ¡n nĂ o
+					Giá»� hĂ ng hiá»‡n táº¡i khĂ´ng cĂ³ sáº£n pháº©m. <br> HĂ£y
+					chá»�n mua thĂªm sáº£n pháº©m mĂ  báº¡n Æ°ng Ă½ Ä‘á»ƒ báº¯t Ä‘áº§u
+					thanh toĂ¡n nĂ o
 				</div>
 			</th:block>
 		</div>
-		
+
 	</div>
 
 	<div th:replace="fragments :: footer"></div>

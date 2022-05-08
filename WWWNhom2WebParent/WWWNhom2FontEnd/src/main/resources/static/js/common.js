@@ -5,8 +5,8 @@ $(document).ready(function() {
 	});
 	var timeRun = loadListCartCus();
 	customDropdownMenu();
-	setTimeout(quantityField, timeRun*1000);
-	setTimeout(quantityPort, timeRun*1000);
+	setTimeout(quantityField, timeRun*2000);
+	setTimeout(quantityPort, timeRun*2000);
 	
 	var action = $.urlParam = urlParam("action");
 	

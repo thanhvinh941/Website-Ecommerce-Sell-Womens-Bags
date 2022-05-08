@@ -17,6 +17,6 @@ public interface AddressRepository extends CrudRepository<Address, Integer>{
 	@Modifying
 	public void updateAllAddressDisabled(Integer id);
 
-	@Query("SELECT a FROM Address a WHERE a.enabled = 1")
-	public Address findByEnabled();
+	@Query("SELECT a FROM Address a WHERE a.enabled = 1 AND a.customer.id =?1")
+	public Address findByEnabled(Integer cusID);
 }

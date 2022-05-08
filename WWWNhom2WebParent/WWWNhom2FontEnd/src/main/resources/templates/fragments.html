@@ -316,13 +316,12 @@
 							<a th:href="@{'/p/' + ${product.alias}}">[[${product.name}]]</a>
 						</h3>
 						<div class="product-price" th:if="${product.discountPercent <= 0}">
-							<span>$[[${product.price}]]</span>
+						<span th:text="${#numbers.formatCurrency(product.price)}"></span>
 						</div>
 						<div class="product-price" th:if="${product.discountPercent > 0}">
-							<span
-								style="font-size: larger; color: darkred; margin-right: 10px;">$[[${product.getDiscountPrice}]]</span>
+							<span style="font-size: larger; color: darkred; margin-right: 10px;" th:text="${#numbers.formatCurrency(product.getDiscountPrice)}"></span>
 							<del>
-								<span>$[[${product.price}]]</span>
+								<span th:text="${#numbers.formatCurrency(product.price)}"></span>
 							</del>
 						</div>
 					</div>

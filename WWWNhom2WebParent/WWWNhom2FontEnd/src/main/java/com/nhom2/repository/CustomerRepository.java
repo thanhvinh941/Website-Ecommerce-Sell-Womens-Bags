@@ -22,5 +22,6 @@ public interface CustomerRepository extends PagingAndSortingRepository<Customer,
 	@Modifying
 	public void enabled(Integer id);
 	
-	public Customer findByResetPasswordToken(String token); 
+	@Query("SELECT c FROM Customer c WHERE c.resetPasswordToken = :token")
+	public Customer findByResetPasswordToken(@Param("token") String token); 
 }

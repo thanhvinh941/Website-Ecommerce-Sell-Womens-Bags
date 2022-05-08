@@ -31,26 +31,24 @@ public class AccountController {
 
 	@Autowired
 	private AddressService addressService;
-	
+
 	@Autowired
 	private TinhThanhPhoService tinhThanhPhoService;
-	
+
 	@Autowired
 	private QuanHuyenService quanHuyenService;
-	
+
 	@Autowired
 	private XaPhuongThiTranService xaPhuongThiTranService;
-	
+
 	@Autowired
 	private CustomerService customerService;
-	
+
 	@Autowired
 	private OrderService orderService;
-	
+
 	@GetMapping("/customer/account/edit")
-	public String getAccountEditView(
-			HttpServletRequest request, 
-			Model model) {
+	public String getAccountEditView(HttpServletRequest request, Model model) {
 		String email = customerService.getEmailOfAuthenticatedCustomer(request);
 		Customer customer = customerService.getCusByEmail(email);
 		model.addAttribute("customer", customer);
@@ -58,38 +56,34 @@ public class AccountController {
 	}
 
 	@GetMapping("/customer/address")
-	public String getAccountAddressView(
-			HttpServletRequest request, 
-			Model model) {
+	public String getAccountAddressView(HttpServletRequest request, Model model) {
 		String email = customerService.getEmailOfAuthenticatedCustomer(request);
 		Customer customer = customerService.getCusByEmail(email);
 		List<Address> listAddresses = addressService.listAddressByCus(customer);
 		model.addAttribute("listAddresses", listAddresses);
 		return "account/location_book";
 	}
-	
+
 	@GetMapping("/customer/address/new")
-	public String addAccountAddressView(
-			HttpServletRequest request, 
-			Model model) {
+	public String addAccountAddressView(HttpServletRequest request, Model model) {
 		Address address = new Address("", "79", "764", "26887", null, null);
 		List<TinhThanhPho> tinhThanhPhos = tinhThanhPhoService.getAll();
 		model.addAttribute("address", address);
 		model.addAttribute("tinhThanhPhos", tinhThanhPhos);
 		return "account/location_book_form";
 	}
-	
+
 	@GetMapping("/customer/address/edit/{addressId}")
-	public String editAccountAddressView(
-			HttpServletRequest request, 
-			Model model,
-			@PathVariable(name="addressId") Integer addressId) {
+	public String editAccountAddressView(HttpServletRequest request, Model model,
+			@PathVariable(name = "addressId") Integer addressId) {
 		String email = customerService.getEmailOfAuthenticatedCustomer(request);
 		Customer customer = customerService.getCusByEmail(email);
 		Address address = addressService.getAddress(addressId);
 		List<TinhThanhPho> tinhThanhPhos = tinhThanhPhoService.getAll();
-		List<QuanHuyen> quanHuyens = quanHuyenService.getAllByTinhId(address.getXaPhuong().getQuanHuyen().getTinhThanhPho().getMatp());
-		List<XaPhuongThiTran> xaPhuongThiTrans = xaPhuongThiTranService.getAllByQuanHuyenId(address.getXaPhuong().getQuanHuyen().getMaqh());
+		List<QuanHuyen> quanHuyens = quanHuyenService
+				.getAllByTinhId(address.getXaPhuong().getQuanHuyen().getTinhThanhPho().getMatp());
+		List<XaPhuongThiTran> xaPhuongThiTrans = xaPhuongThiTranService
+				.getAllByQuanHuyenId(address.getXaPhuong().getQuanHuyen().getMaqh());
 		model.addAttribute("tinhThanhPhos", tinhThanhPhos);
 		model.addAttribute("quanHuyens", quanHuyens);
 		model.addAttribute("xaPhuongThiTrans", xaPhuongThiTrans);
@@ -98,50 +92,48 @@ public class AccountController {
 		model.addAttribute("address", address);
 		return "account/location_book_form";
 	}
-	
+
 	@PostMapping("/customer/address/save")
-	public String editAccountAddress(
-			HttpServletRequest request, 
-			Model model,
-			@Param("id") Integer id,
-			Address address,
+	public String editAccountAddress(HttpServletRequest request, Model model, @Param("id") Integer id, Address address,
 			@Param("enabled") boolean enabled) {
 		String email = customerService.getEmailOfAuthenticatedCustomer(request);
 		Customer customer = customerService.getCusByEmail(email);
 		XaPhuongThiTran xaPhuongThiTran = xaPhuongThiTranService.get(address.getXaPhuongThiTran());
 		address.setXaPhuong(xaPhuongThiTran);
 		address.setCustomer(customer);
-		if(address.getId() != null) {
+		if (address.getId() != null) {
 			addressService.update(address);
 			return "redirect:/customer/address?action=update";
-		}else {
+		} else {
 			addressService.save(address);
 			return "redirect:/customer/address?action=add";
 		}
 	}
 
 	@GetMapping("/customer/address/delete/{addressId}")
-	public String deleteAccountAddressView(
-			HttpServletRequest request, 
-			Model model,
-			@PathVariable(name="addressId") Integer addressId) {
+	public String deleteAccountAddressView(HttpServletRequest request, Model model,
+			@PathVariable(name = "addressId") Integer addressId) {
 		Address address = addressService.getAddress(addressId);
-		if(address != null) {			
+		if (address != null) {
 			addressService.delete(address);
 			return "redirect:/customer/address";
 		}
-		return"/error/404";
+		return "/error/404";
 	}
 
 	@GetMapping("/sales/order/history")
-	public String getAccountOrderView(
-			HttpServletRequest request, 
-			Model model) {
+	public String getAccountOrderView(HttpServletRequest request, Model model) {
 		String email = customerService.getEmailOfAuthenticatedCustomer(request);
 		Customer customer = customerService.getCusByEmail(email);
 		List<Order> orders = orderService.getOrderByCusId(customer.getId());
 		model.addAttribute("orders", orders);
-	
+
 		return "account/orders_manager";
+	}
+
+	@PostMapping("/customer/info")
+	public String editInfoUser(HttpServletRequest request, Model model, @Param("id") Integer id, Customer customer) {
+		
+		return null;
 	}
 }

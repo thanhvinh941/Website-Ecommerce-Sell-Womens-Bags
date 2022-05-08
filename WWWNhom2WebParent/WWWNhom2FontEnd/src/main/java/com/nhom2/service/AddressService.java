@@ -27,8 +27,8 @@ public class AddressService {
 		return addressRepository.findById(addressId).get();
 	}
 	
-	public Address getAddressEnabled() {
-		return addressRepository.findByEnabled();
+	public Address getAddressEnabled(Integer cusID) {
+		return addressRepository.findByEnabled(cusID);
 	}
 
 	public void update(Address address) {

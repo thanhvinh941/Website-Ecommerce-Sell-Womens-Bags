@@ -2,6 +2,7 @@ package com.nhom2;
 
 import java.io.UnsupportedEncodingException;
 import java.util.List;
+import java.util.Locale;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
@@ -25,6 +27,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.Context;
 
 import com.nhom2.common.entity.Category;
 import com.nhom2.common.entity.Customer;
@@ -47,6 +51,9 @@ public class MainController {
 	
 	@Autowired 
 	private CustomerService customerService;
+	
+	@Autowired
+	private TemplateEngine templateEngine;
 	
 	@RequestMapping(value = { "/", "/welcome" }, method = RequestMethod.GET)
 	public String welcomePage(Model model) {
@@ -128,16 +135,13 @@ public class MainController {
 			model.addAttribute("error", e.getMessage());
 		}
 		Customer customer = customerService.getCusByEmail(email);
-		System.out.println(customer);
 		model.addAttribute("pageTitle", "Forgot Password");	
 		return "forgot_password";
 	}
 	
 	@GetMapping("/reset-password")
 	public String resetPasswordPage(@Param("token") String token, Model model ) {
-		System.out.println(token);
 		Customer customer = customerService.getByRestPasswordToken(token);
-		System.out.println(customer);
 		if(customer != null) {
 			model.addAttribute("token", token);
 		}else {
@@ -159,11 +163,11 @@ public class MainController {
 			model.addAttribute("title", "Reset Your password.");
 			model.addAttribute("message", "You have successfully changed your password.");
 			
-			return "message";
+			return viewsLoginPage(model);
 		} catch (CustomerNotFoundException e) {
 			model.addAttribute("pageTitle","Invalid Token");
 			model.addAttribute("message", e.getMessage());
-			return "message";
+			return viewsForgotPasswordPage(model);
 		}
 	}
 	
@@ -189,69 +193,47 @@ public class MainController {
 	
 	private void sendVerificationEmail(HttpServletRequest request, Customer customer) throws UnsupportedEncodingException, MessagingException {
 		JavaMailSenderImpl mailSender = Utility.prepareMailSender();
-		String toAddress = customer.getEmail();
-		String content = "<span style=\"font-size: 18px;\">Gửi [[name]],<br><br></span>\r\n"
-				+ "		<div>\r\n"
-				+ "			<span style=\"font-size: 18px;\">Nhấn vào đường dẫn bên dưới để xác thực tài khoản bạn đã đăng ký!!!</span>\r\n"
-				+ "			<div>\r\n"
-				+ "				<span style=\"font-size: 18px;\"><br></span>\r\n"
-				+ "			</div>\r\n"
-				+ "			<div style=\"text-align: center;\">\r\n"
-				+ "				<button style=\"padding: 10px 20px; background-color: blue\">\r\n"
-				+ "					<a style=\"font-size: 18px; color: white;\" href=\"[[URL]]\" target=\"_self\">Xác thực</a>\r\n"
-				+ "				</button>\r\n"
-				+ "			</div>\r\n"
-				+ "			<div>\r\n"
-				+ "				<span style=\"font-size: 18px;\"><br></span>\r\n"
-				+ "			</div>\r\n"
-				+ "			<div>\r\n"
-				+ "				<span style=\"font-size: 18px;\"><br>Cảm ơn bạn, Nhóm 2 WWW (2021-2022).</span>\r\n"
-				+ "				<span style=\"font-size: 18px;\"></span>\r\n"
-				+ "			</div>\r\n"
-				+ "		</div>";
+		
+		Locale locale = LocaleContextHolder.getLocale();
+		
+		Context ctx = new Context(locale);
+		
+		String verifyURL = "http://localhost/Nhom2/verify/" + customer.getVerificationCode();
+		ctx.setVariable("url", verifyURL);
+		
+		
 		MimeMessage message = mailSender.createMimeMessage();
 		MimeMessageHelper helper = new MimeMessageHelper(message, false, "utf-8");
-		helper.setSubject("Hỗ trợ shopme Nhóm 2 WWW java (2021-2022)");
+		
+		String toAddress = customer.getEmail();
 		helper.setTo(toAddress);
-		content = content.replace("[[name]]", customer.getFullName());
-		String verifyURL = "http://localhost/Nhom2/verify/" + customer.getVerificationCode();
-		content = content.replace("[[URL]]", verifyURL);
-		helper.setText(content, true);
+		helper.setSubject("Hỗ trợ shopme Nhóm 2 WWW java (2021-2022)");
+				
+		String htmlContent = "";
+		htmlContent = templateEngine.process("mails/email_registered.html", ctx);
+		helper.setText(htmlContent, true);
 		mailSender.send(message);
 	}
 	
 	private void sendVerificationForgotPassword(HttpServletRequest request, String token, String email) throws UnsupportedEncodingException, MessagingException {
 		JavaMailSenderImpl mailSender = Utility.prepareMailSender();
-		String content = "<span style=\"font-size: 18px;\">Xin chào,<br><br></span>\r\n"
-				+ "		<div>\r\n"
-				+ "			<span style=\"font-size: 18px;\">Đây là đường dẫn để reset password!!!</span>\r\n"
-				+ "			<div>\r\n"
-				+ "				<span style=\"font-size: 18px;\"><br></span>\r\n"
-				+ "			</div>\r\n"
-				+ "			<span style=\"font-size: 18px;\">Nhấn vào đường dẫn để reset password!!!</span>\r\n"
-				+ "			<div>\r\n"
-				+ "				<span style=\"font-size: 18px;\"><br></span>\r\n"
-				+ "			</div>\r\n"
-				+ "			<div style=\"text-align: center;\">\r\n"
-				+ "				<button style=\"padding: 10px 20px; background-color: blue\">\r\n"
-				+ "					<a style=\"font-size: 18px; color: white;\" href=\"[[URL]]\" target=\"_self\">Xác thực</a>\r\n"
-				+ "				</button>\r\n"
-				+ "			</div>\r\n"
-				+ "			<div>\r\n"
-				+ "				<span style=\"font-size: 18px;\"><br></span>\r\n"
-				+ "			</div>\r\n"
-				+ "			<div>\r\n"
-				+ "				<span style=\"font-size: 18px;\"><br>Cảm ơn bạn, Nhóm 2 WWW (2021-2022).</span>\r\n"
-				+ "				<span style=\"font-size: 18px;\"></span>\r\n"
-				+ "			</div>\r\n"
-				+ "		</div>";
+		
+		Locale locale = LocaleContextHolder.getLocale();
+		
+		Context ctx = new Context(locale);
+		
+		String verifyURL = "http://localhost/Nhom2/reset-password?token=" + token;
+		ctx.setVariable("url", verifyURL);
+		
 		MimeMessage message = mailSender.createMimeMessage();
 		MimeMessageHelper helper = new MimeMessageHelper(message, false, "utf-8");
-		helper.setSubject("Hỗ trợ shopme Nhóm 2 WWW java (2021-2022)");
+		
 		helper.setTo(email);
-		String verifyURL = "http://localhost/Nhom2/reset-password?" + token;
-		content = content.replace("[[URL]]", verifyURL);
-		helper.setText(content, true);
+		helper.setSubject("Hỗ trợ shopme Nhóm 2 WWW java (2021-2022)");
+				
+		String htmlContent = "";
+		htmlContent = templateEngine.process("mails/email_confirm_forgotpassword.html", ctx);
+		helper.setText(htmlContent, true);
 		mailSender.send(message);
 	}
 }

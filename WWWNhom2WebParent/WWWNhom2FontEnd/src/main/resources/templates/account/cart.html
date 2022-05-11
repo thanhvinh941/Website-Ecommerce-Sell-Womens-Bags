@@ -4,55 +4,57 @@
 <head th:replace="fragments :: page_head('Check Out', 'none')" />
 <body>
 	<div th:replace="fragments :: navbarNoCategory"></div>
-	<div class="row shop checkout section"
-		style="min-height: 80vh; margin: auto;">
-		<div class="col-12">
-			<th:block th:if="${lisCartItems != null}">
-				<ul style="margin-top: 30px;">
-					<th:block th:each="cartItem : ${lisCartItems}">
-						<li class="my-2">
-							<div class="d-flex justify-content-between rounded p-3 border">
-								<a class="cart-img rounded"
-									th:href="@{'/p/' +${cartItem.alias}}"> <img
-									style="height: 120px;" th:src="@{${cartItem.image}}">
-								</a>
-								<div class="d-block w-100 px-3">
-									<h4>
-										<a th:href="@{'/p/' +${cartItem.alias}}">[[${cartItem.name}]]</a>
-									</h4>
-									<p class="quantity">
-										<span> <a class="quantity-button"
-											th:href="@{'/update-to-cart/' + ${cartItem.id} + '/' + ${cartItem.quantity}+ '?status=down'}">
-												<i class="fa fa-minus-circle"></i>
-										</a> &nbsp;&nbsp;<span class="quantityField">[[${cartItem.quantity}]]</span>&nbsp;&nbsp;
-											<a class="quantity-button"
-											th:href="@{'/update-to-cart/' + ${cartItem.id} + '/' + ${cartItem.quantity} + '?status=up'}">
-												<i class="fa fa-plus-circle"></i>
-										</a>
-										</span> &nbsp;&nbsp;-&nbsp;&nbsp; <span class="amount"
-											th:text="${#numbers.formatCurrency(cartItem.discountPrice *
+	<div class="container">
+		<div class="row shop checkout section"
+			style="min-height: 80vh; margin: auto;">
+			<div class="col-12">
+				<th:block th:if="${lisCartItems != null}">
+					<ul style="margin-top: 30px;">
+						<th:block th:each="cartItem : ${lisCartItems}">
+							<li class="my-2">
+								<div class="d-flex justify-content-between rounded p-3 border">
+									<a class="cart-img rounded"
+										th:href="@{'/p/' +${cartItem.alias}}"> <img
+										style="height: 120px;" th:src="@{${cartItem.image}}">
+									</a>
+									<div class="d-block w-100 px-3">
+										<h4>
+											<a th:href="@{'/p/' +${cartItem.alias}}">[[${cartItem.name}]]</a>
+										</h4>
+										<p class="quantity">
+											<span> <a class="quantity-button"
+												th:href="@{'/update-to-cart/' + ${cartItem.id} + '/' + ${cartItem.quantity}+ '?status=down'}">
+													<i class="fa fa-minus-circle"></i>
+											</a> &nbsp;&nbsp;<span class="quantityField">[[${cartItem.quantity}]]</span>&nbsp;&nbsp;
+												<a class="quantity-button"
+												th:href="@{'/update-to-cart/' + ${cartItem.id} + '/' + ${cartItem.quantity} + '?status=up'}">
+													<i class="fa fa-plus-circle"></i>
+											</a>
+											</span> &nbsp;&nbsp;-&nbsp;&nbsp; <span class="amount"
+												th:text="${#numbers.formatCurrency(cartItem.discountPrice *
 											cartItem.quantity)}">
-										</span>
-									</p>
+											</span>
+										</p>
 
+									</div>
+									<a th:href="@{'/delete-to-cart/' + ${cartItem.id}}"
+										class="remove" title="Remove this item"> <i
+										class="fa fa-remove"></i></a>
 								</div>
-								<a th:href="@{'/delete-to-cart/' + ${cartItem.id}}"
-									class="remove" title="Remove this item"> <i
-									class="fa fa-remove"></i></a>
-							</div>
-						</li>
-					</th:block>
-				</ul>
-			</th:block>
-			<th:block th:if="${lisCartItems.size() == 0}">
-				<div class="p-5 text-center">
-					Gỏi hàng của bạn hiện tại không có sản phẩm. <br> Hãy chọn mua sản phẩm để bắt đầu thanh to
-				</div>
-			</th:block>
+							</li>
+						</th:block>
+					</ul>
+				</th:block>
+				<th:block th:if="${lisCartItems.size() == 0}">
+					<div class="p-5 text-center">
+						Gỏi hàng của bạn hiện tại không có sản phẩm. <br> Hãy chọn
+						mua sản phẩm để bắt đầu thanh to
+					</div>
+				</th:block>
+			</div>
+
 		</div>
-
 	</div>
-
 	<div th:replace="fragments :: footer"></div>
 	<div th:replace="fragments :: script"></div>
 	<script type="text/javascript">

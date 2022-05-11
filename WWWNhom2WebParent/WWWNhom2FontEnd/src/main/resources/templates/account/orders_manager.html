@@ -4,64 +4,70 @@
 <head th:replace="fragments :: page_head('Quản lý đơn hàng', 'none')" />
 <body>
 	<div th:replace="fragments :: navbarNoCategory"></div>
-	<div class="breadcrumbs"
-		th:replace="fragments :: breadcrumbs('Quản lý đơn hàng','/sales/order/history')">
-	</div>
-	<div class="d-flex my-4">
-		<aside th:replace="fragments :: accountStyledSideBar"></aside>
-		<section
-			style="flex: 1; margin-right: 10px; height: 100vh; overflow-y: scroll;"
-			class="p-3">
-			<th:block th:each="order : ${orders}">
-				<div class="row">
-					<div class="col-12 my-3"
-						style="background: #F2F2F2; border-radius: 10px;">
-						<div
-							class="d-flex align-items-center p-2 border-bottom justify-content-between">
-							<div class="d-flex align-items-center">
-								<i class="fa fa-truck" aria-hidden="true"></i>&ensp;
-								<p>Giao hàng thàng công</p>
+	<div class="container">
+		<div class="breadcrumbs"
+			th:replace="fragments :: breadcrumbs('Quản lý đơn hàng','/sales/order/history')">
+		</div>
+		<div class="d-flex my-4">
+			<aside th:replace="fragments :: accountStyledSideBar"></aside>
+			<section
+				style="flex: 1; margin-right: 10px; height: 100vh; overflow-y: scroll;"
+				class="p-3">
+				<th:block th:each="order : ${orders}">
+					<div class="row">
+						<div class="col-12 my-3"
+							style="background: #F2F2F2; border-radius: 10px;">
+							<div
+								class="d-flex align-items-center p-2 border-bottom justify-content-between">
+								<div class="d-flex align-items-center">
+									<i class="fa fa-truck" aria-hidden="true"></i>&ensp;
+									<p>Giao hàng thàng công</p>
+								</div>
+								<div>Ngày lập hóa đơn : [[${order.updatedTime}]]</div>
 							</div>
-							<div>Ngày lập hóa đơn : [[${order.updatedTime}]]</div>
-						</div>
-						<div class="p-2">
-							<th:block th:each="od : ${order.listOrderDetail}">
-								<div class="row align-items-center justify-content-between border-bottom">
-									<div class="col-9">
-										<div class="d-flex align-items-start justify-content-between my-2">
-											<div style="width: 100px">
-												<img style="height: 100px;" class="hover-img"
-													th:src="@{${od.product.getMainImagePath}}" alt="#">
+							<div class="p-2">
+								<th:block th:each="od : ${order.listOrderDetail}">
+									<div
+										class="row align-items-center justify-content-between border-bottom">
+										<div class="col-9">
+											<div
+												class="d-flex align-items-start justify-content-between my-2">
+												<div style="width: 100px">
+													<img style="height: 100px;" class="hover-img"
+														th:src="@{${od.product.getMainImagePath}}" alt="#">
+												</div>
+												<div class="mx-2">
+													[[${od.product.name}]] <br>
+													<div th:utext="${od.product.shortDescription}"></div>
+												</div>
 											</div>
-											<div class="mx-2">
-												[[${od.product.name}]] <br>
-												<div th:utext="${od.product.shortDescription}"></div>
+										</div>
+										<div class="col-3">
+											<div class="text-right">
+												Số lượng :[[${od.quantity}]] <br> Thành tiền : <span
+													style="color: darkred;"
+													th:text="${#numbers.formatCurrency(od.quantity*od.product.discountPrice)}"></span>
 											</div>
-										</div>							
-									</div>
-									<div class="col-3">									
-										<div class="text-right"> Số lượng :[[${od.quantity}]] <br> Thành tiền : <span
-												style="color: darkred;"
-												th:text="${#numbers.formatCurrency(od.quantity*od.product.discountPrice)}"></span>
 										</div>
 									</div>
-								</div>
-							</th:block>
-						</div>
-						<div class="d-flex flex-column align-items-end p-2 border-bottom">
-							<div>
-								Tổng tiền : <span style="color: darkred;"
-									th:text="${#numbers.formatCurrency(order.total)}"></span>
+								</th:block>
 							</div>
-							<div>
-								<a th:href="@{/shop-grid}" class="text-danger">Mua lại</a> <a
-									th:href="@{'/customer/od/'+${order.id}}" class="ml-2 text-info">Xem chi tiết</a>
+							<div class="d-flex flex-column align-items-end p-2 border-bottom">
+								<div>
+									Tổng tiền : <span style="color: darkred;"
+										th:text="${#numbers.formatCurrency(order.total)}"></span>
+								</div>
+								<div>
+									<a th:href="@{/shop-grid}" class="text-danger">Mua lại</a> <a
+										th:href="@{'/customer/od/'+${order.id}}"
+										class="ml-2 text-info">Xem chi tiết</a>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-			</th:block>
-		</section>
+				</th:block>
+			</section>
+		</div>
 	</div>
 	<div th:replace="fragments :: footer"></div>
 	<div th:replace="fragments :: script"></div>

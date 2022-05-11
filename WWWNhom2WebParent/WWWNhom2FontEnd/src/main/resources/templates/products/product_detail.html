@@ -2,9 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments :: page_head(${pageTitle}, 'none')" />
 <body>
-	<div class="container-fluid m-0 p-0">
+	<div class="container-fluid m-0 p-0" style="background-color: #f6f7fb;">
 		<div th:replace="fragments :: navbarNoCategory"></div>
-		<div class="breadcrumbs"
+		<div class="breadcrumbs container"
 			th:if="${categoryParents != null && !categoryParents.empty}">
 			<div class="container m-3">
 				<div class="row">
@@ -31,7 +31,6 @@
 							class="img-fluid" />
 					</div>
 					<div>
-						<h3>Image extra</h3>
 						<div class="d-flex">
 							<img th:each="productImages : ${productDetail.images}" alt=""
 								th:src="@{${productImages.getImagePath}}" class="img-fluid" />
@@ -95,6 +94,7 @@
 				</div>
 			</div>
 		</div>
+	</div>
 		<div class="modal fade text-center" id="detailModal">
 			<div class="modal-dialog modal-xl">
 				<div class="modal-content"></div>
@@ -104,19 +104,13 @@
 		<div th:replace="fragments :: footer"></div>
 		<div th:replace="fragments :: script"></div>
 		<script type="text/javascript">
-	viewCart = "[[@{/customers/view-cart}]]";
-	updateToCart = "[[@{/update-to-cart}]]";
-	getCart = "[[@{/customers/get_cart}]]";
-	gmailAuthen = "[[@{/customers/get_email_authen}]]";
-	productDetail = "[[@{/p}]]";
-	deleteToCart = "[[@{/delete-to-cart}]]";
-	$(document).ready(function(){	 
-		$(".link-detail").on("click", function(e){
-			e.preventDefault();
-			linkDetailURL = $(this).attr("href");
-			$("#detailModal").modal("show").find(".modal-content").load(linkDetailURL);
-		});
-    });
-	</script>
+			$(document).ready(function(){	 
+				$(".link-detail").on("click", function(e){
+					e.preventDefault();
+					linkDetailURL = $(this).attr("href");
+					$("#detailModal").modal("show").find(".modal-content").load(linkDetailURL);
+				});
+		    });
+		</script>
 </body>
 </html>

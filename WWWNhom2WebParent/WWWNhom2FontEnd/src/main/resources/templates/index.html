@@ -14,7 +14,7 @@
 		<section th:replace="fragments :: newsletter"></section>
 	</div>
 	<div class="modal fade text-center" id="detailModal">
-		<div class="modal-dialog modal-xl">
+		<div class="modal-dialog modal-xl" style="margin: 2% auto;">
 			<div class="modal-content"></div>
 		</div>
 	</div>
@@ -22,12 +22,6 @@
 	<div th:replace="fragments :: footer"></div>
 	<div th:replace="fragments :: script"></div>
 	<script type="text/javascript">
-		viewCart = "[[@{/customers/view-cart}]]";
-		updateToCart = "[[@{/update-to-cart}]]";
-		getCart = "[[@{/customers/get_cart}]]";
-		gmailAuthen = "[[@{/customers/get_email_authen}]]";
-		productDetail = "[[@{/p}]]";
-		deleteToCart = "[[@{/delete-to-cart}]]";
 		$(document).ready(function(){
 			$(".link-detail").on("click", function(e){
 				e.preventDefault();
@@ -35,7 +29,6 @@
 				$("#detailModal").modal("show").find(".modal-content").load(linkDetailURL);
 			});
 	    });
-    
 	</script>
 </body>
 </html>

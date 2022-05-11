@@ -6,7 +6,7 @@
 	</button>
 </div>
 <div class="modal-body">
-	<div class="row no-gutters m-0">
+	<div class="row no-gutters m-0" style="max-height: 600px; height: 600px; overflow: hidden;">
 		<div class="col-3">
 			<!-- Product Slider -->
 			<div class="product-gallery">
@@ -18,7 +18,7 @@
 			</div>
 			<!-- End Product slider -->
 		</div>
-		<div class="col-lg-6">
+		<div class="col-lg-6" style="height: 100%;">
 			<div class="quickview-content">
 				<h2>[[${product.name}]]</h2>
 				<div class="quickview-ratting-review">
@@ -44,24 +44,6 @@
 			</div>
 		</div>
 		<div class="col-3" style="margin-top: 50px;">
-			<div class="quantity my-3">
-				<div th:if="${product.inStock}" class="input-group" style="width: 180px;">
-					<div class="button minus">
-						<button type="button" class="btn btn-primary btn-number"
-							disabled="disabled" data-type="minus" data-field="quant[1]">
-							<i class="ti-minus"></i>
-						</button>
-					</div>
-					<input type="text" name="quant[1]" class="input-number"
-						data-min="1" data-max="1000" value="1">
-					<div class="button plus">
-						<button type="button" class="btn btn-primary btn-number"
-							data-type="plus" data-field="quant[1]">
-							<i class="ti-plus"></i>
-						</button>
-					</div>
-				</div>
-			</div>
 			<div th:if="${product.inStock}" class="add-to-cart">
 				<a th:href="@{'/add-to-cart/' + ${product.id} + '/1' }" class="btn">
 					Add to cart

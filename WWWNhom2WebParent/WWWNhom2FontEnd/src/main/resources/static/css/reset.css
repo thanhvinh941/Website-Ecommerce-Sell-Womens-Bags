@@ -1146,11 +1146,11 @@ object {
 .modal-dialog .modal-content .modal-body {
 	padding: 0px;
 	overflow-y: auto;
-	max-height: 420px;
-	height: 420px;
 }
 .quickview-content {
 	padding: 40px 40px;
+	height: 100%;
+    overflow-y: scroll;
 }
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
   .quickview-content {

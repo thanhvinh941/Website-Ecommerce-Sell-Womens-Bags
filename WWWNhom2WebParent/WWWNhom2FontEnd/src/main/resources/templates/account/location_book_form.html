@@ -17,7 +17,7 @@
 					<input type="hidden" th:field="*{id}">
 					<div class="form-group row">
 						<label class="col-sm-2 col-form-label">Tỉnh thành phố:</label>
-						<div class="col-sm-10">
+						<div class="col-sm-10 mb-1">
 							<select class="form-control"
 								th:field="*{tinhThanhPho}" required>
 								<th:block th:each="tinhThanhPho : ${tinhThanhPhos}">
@@ -28,7 +28,7 @@
 					</div>
 					<div class="form-group row">
 						<label class="col-sm-2 col-form-label">Quận huyện:</label>
-						<div class="col-sm-10">
+						<div class="col-sm-10 mb-1">
 							<select class="form-control" th:field="*{quanHuyen}" required>
 								<th:block th:each="quanHuyen : ${quanHuyens}">
 									<option th:value="${quanHuyen.maqh}">[[${quanHuyen.name}]]</option>
@@ -38,7 +38,7 @@
 					</div>
 					<div class="form-group row">
 						<label class="col-sm-2 col-form-label">Phường xã:</label>
-						<div class="col-sm-10">
+						<div class="col-sm-10 mb-1">
 							<select class="form-control" th:field="*{xaPhuongThiTran}" required>
 								<th:block th:each="xaPhuongThiTran : ${xaPhuongThiTrans}">
 									<option th:value="${xaPhuongThiTran.xaid}">[[${xaPhuongThiTran.name}]]</option>
@@ -48,24 +48,24 @@
 					</div>
 					<div class="form-group row">
 						<label class="col-sm-2 col-form-label">Địa chỉ:</label>
-						<div class="col-sm-10">
+						<div class="col-sm-10 mb-1">
 							<textarea class="form-control" rows="5" cols="10"
 								th:field="*{addressline}"></textarea>
 						</div>
 					</div>
 					<div class="form-group row" th:if="${!address.enabled}">
-						<div class="col-sm-10">
+						<div class="col-sm-10 mb-1">
 							<input type="checkbox" th:field="*{enabled}" name="enabled">Xác nhận địa chỉ mặc định
 						</div>
 					</div>
 					<div class="form-group row" th:if="${address.enabled}">
-						<div class="col-sm-10">
+						<div class="col-sm-10 mb-1">
 							<input type="checkbox" hidden="true" th:field="*{enabled}" name="enabled" value="Xác nhận địa chỉ mặc định">
 						</div>
 					</div>
 					<div class="form-group row">
-						<div class="col-sm-10">
-							<input type="submit" value="Lưu địa chỉ">
+						<div class="col-sm-10 mb-1">
+							<input class="btn" type="submit" value="Lưu địa chỉ">
 						</div>
 					</div>
 				</form>
@@ -75,12 +75,6 @@
 	<div th:replace="fragments :: footer"></div>
 	<div th:replace="fragments :: script"></div>
 	<script type="text/javascript">
-		viewCart = "[[@{/customers/view-cart}]]";
-		updateToCart = "[[@{/update-to-cart}]]";
-		getCart = "[[@{/customers/get_cart}]]";
-		gmailAuthen = "[[@{/customers/get_email_authen}]]";
-		productDetail = "[[@{/p}]]";
-		deleteToCart = "[[@{/delete-to-cart}]]";
 		addressURL="[[@{/address}]]";
 		dropdownTinhThanhPhos = $("#tinhThanhPho");
 		dropdownQuanHuyens = $("#quanHuyen");

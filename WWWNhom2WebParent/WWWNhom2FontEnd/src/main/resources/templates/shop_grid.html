@@ -35,7 +35,9 @@
 												</a>
 											</div>
 											<div class="product-action-2">
-												<a title="Add to cart" href="#">Add to cart</a>
+												<a title="Add to cart"
+													th:href="@{'/add-to-cart/' + ${product.id} + '/1' }">Add
+													to cart</a>
 											</div>
 										</div>
 									</div>
@@ -72,12 +74,6 @@
 	<div th:replace="fragments :: footer"></div>
 	<div th:replace="fragments :: script"></div>
 	<script type="text/javascript">
-	viewCart = "[[@{/customers/view-cart}]]";
-		updateToCart = "[[@{/update-to-cart}]]";
-		getCart = "[[@{/customers/get_cart}]]";
-		gmailAuthen = "[[@{/customers/get_email_authen}]]";
-		productDetail = "[[@{/p}]]";
-		deleteToCart = "[[@{/delete-to-cart}]]";
 	$(document).ready(function(){	 
 		$(".link-detail").on("click", function(e){
 			e.preventDefault();

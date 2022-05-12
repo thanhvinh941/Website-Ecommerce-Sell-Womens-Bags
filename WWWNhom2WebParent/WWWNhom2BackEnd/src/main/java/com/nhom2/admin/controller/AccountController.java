@@ -49,6 +49,8 @@ public class AccountController {
 		if (!multipartFile.isEmpty()) {
 			String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename()).replace(" ", "");
 			
+			System.out.println(user);
+			
 			user.setPhotos(fileName.trim());
 			User savadUser = service.updateAccount(user);
 			

@@ -1002,7 +1002,7 @@ preloader-fx {
 }
 
 .header.shop .main-category li .mega-menu .single-menu {
-	width: 33%;
+	width: 24.5%;
 	display: inline-block;
 	border: none;
 	padding: 0;
@@ -1019,28 +1019,26 @@ preloader-fx {
 
 .header.shop .main-category li .mega-menu .single-menu img {
 	display: block;
-	height: 100%;
-	width: 100%;
+	height: 220px;
 	cursor: pointer;
+	border-radius: 0 3px 3px 3px;
 }
 
-.header.shop .main-category li .mega-menu .single-menu .image:hover img
-	{
+.header.shop .main-category li .mega-menu .single-menu .image:hover img{
 	transform: scale(1.1);
+	border-radius: 0 3px 3px 3px;
 }
 
 .header.shop .main-category li .mega-menu .single-menu .title-link {
-	margin-bottom: 20px;
 	background: #F7941D;
 	color: #fff;
 	padding: 2px 13px;
-	border-radius: 3px;
+	border-radius: 3px 3px 0 0;
 	display: inline-block;
 	font-size: 14px;
 }
 
-.header.shop .main-category li .mega-menu .single-menu .title-link:hover
-	{
+.header.shop .main-category li .mega-menu .single-menu .title-link:hover{
 	background: #333;
 	color: #fff;
 }
@@ -2145,7 +2143,7 @@ preloader-fx {
 .single-product .product-img .product-action {
 	display: inline-block;
 	position: absolute;
-	right: 0;
+	right: 20px;
 	bottom: 0;
 	z-index: 99;
 	border-radius: 3px;
@@ -2236,7 +2234,7 @@ preloader-fx {
 
 .single-product .product-img .product-action-2 {
 	position: absolute;
-	left: 0;
+	left: 20px;
 	bottom: 0;
 	text-align: left;
 	z-index: 99;
@@ -3969,7 +3967,6 @@ preloader-fx {
 	color: #555555;
 	position: relative;
 	font-size: 14px;
-	padding-left: 20px;
 	margin-top: -5px;
 	font-weight: 400;
 	display: block;
@@ -3986,41 +3983,6 @@ preloader-fx {
 
 .shop.checkout .single-widget .checkbox label input {
 	display: none;
-}
-
-.shop.checkout .single-widget .checkbox label::before {
-	position: absolute;
-	content: "";
-	left: 0;
-	top: 7px;
-	width: 12px;
-	height: 12px;
-	line-height: 16px;
-	border: 1px solid #666;
-	border-radius: 100%;
-}
-
-.shop.checkout .single-widget .checkbox label::after {
-	position: absolute;
-	content: "";
-	left: 0;
-	top: 7px;
-	width: 12px;
-	height: 12px;
-	line-height: 16px;
-	border-radius: 100%;
-	display: block;
-	background: #666;
-	transform: scale(0);
-	-webkit-transition: all 0.4s ease;
-	-moz-transition: all 0.4s ease;
-	transition: all 0.4s ease;
-}
-
-.shop.checkout .single-widget .checkbox label.checked::after {
-	opacity: 1;
-	visibility: visible;
-	transform: scale(1);
 }
 
 .shop.checkout .single-widget.payement {

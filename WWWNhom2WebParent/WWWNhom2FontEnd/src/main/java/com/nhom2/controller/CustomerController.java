@@ -67,7 +67,7 @@ public class CustomerController {
 	public String customerCheckout(
 			HttpServletRequest request, 
 			Model model) throws MessagingException {
-		long subTotal=0; long shiping=0;
+		long subTotal = 0; long shiping = 0;
 		String email = customerService.getEmailOfAuthenticatedCustomer(request);
 		Customer customer = customerService.getCusByEmail(email);
 		List<CartItemDTO> lisCartItems = cartItemService.getListCartByCusId(customer.getId());
@@ -75,14 +75,18 @@ public class CustomerController {
 			subTotal += cartItemDTO.getDiscountPrice();
 		}
 		Address address = addressService.getAddressEnabled(customer.getId());
-		shiping = address.getXaPhuong().getShipping();
+		if(address != null) {			
+			shiping = address.getXaPhuong().getShipping();
+			model.addAttribute("address", address.getAddressline());
+		}else {
+			model.addAttribute("address", null);
+		}
 		Order order = new Order();
 		model.addAttribute("lisCartItems", lisCartItems);
 		model.addAttribute("order", order);
 		model.addAttribute("subTotal", subTotal);
 		model.addAttribute("shiping", shiping);
 		model.addAttribute("total", (long)(subTotal + shiping));
-		model.addAttribute("address", address.getAddressline());
 		model.addAttribute("phoneNumber", customer.getPhoneNumber());
 		
 		return "/account/checkout";

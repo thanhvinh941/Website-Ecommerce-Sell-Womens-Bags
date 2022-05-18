@@ -8,6 +8,6 @@ Product Owner, BA, Developer, Tester
 - Developer
 - Solution architect
 ### *Technology in use :* 
-- Frontend: HTML, CSS, Js
+- Frontend: HTML, CSS, JS
 - Backend: Spring Boot, JPA/Hibernate, Mysql
 

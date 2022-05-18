@@ -1,6 +1,6 @@
 # Website-Ecommerce-Sell-Womens-Bags
 ### *Descriptions :* 
-Website Ecommerce Sell Womens Bags
+Website Ecommerce Introduce And Sell Womens Bags
 ### *Number of members :* 1
 ### *Position :* 
 Product Owner, BA, Developer, Tester

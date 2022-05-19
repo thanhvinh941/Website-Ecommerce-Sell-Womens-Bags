@@ -12,14 +12,14 @@ Product Owner, BA, Developer, Tester
 - Frontend: HTML, CSS, JS
 - Backend: Spring Boot, JPA/Hibernate, Mysql
 ## *Functional :*
-#### Admin:
+#### Admin :
 - Human Resource Management
 - Trademark Management
 - Product Management
 - Customer Management
 - Order Management
 - Report
-#### Clien:
+#### Client :
 - Authenticaton
 - Verify Account by email
 - Forgot Password by email

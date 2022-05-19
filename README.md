@@ -24,3 +24,8 @@ Product Owner, BA, Developer, Tester
 - Verify Account by email
 - Forgot Password by email
 - Confirmed Order 
+
+## Admin Page
+![Alt Text](https://github.com/thanhvinh941/Website-Ecommerce-Sell-Womens-Bags/blob/master/sql/Admin.png)
+## Home Page
+![Alt Text](https://github.com/thanhvinh941/Website-Ecommerce-Sell-Womens-Bags/blob/master/sql/HomePage.png)

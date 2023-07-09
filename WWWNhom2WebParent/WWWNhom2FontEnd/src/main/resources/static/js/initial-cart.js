@@ -7,7 +7,7 @@ $(document).ready(() => {
 });
 
 function loadCartdata(){
-	var url = '/user/load-cart';
+	var url = '/customer/loadcart';
 	$.ajax({
 		url: encodeURI(url),
 		dataType: 'json',

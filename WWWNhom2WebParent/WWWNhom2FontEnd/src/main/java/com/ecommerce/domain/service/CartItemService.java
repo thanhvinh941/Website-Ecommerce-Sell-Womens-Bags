@@ -1,0 +1,65 @@
+package com.ecommerce.domain.service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.ecommerce.common.entity.CartItem;
+import com.ecommerce.common.entity.Customer;
+import com.ecommerce.common.entity.Product;
+import com.ecommerce.domain.model.CartItemDTO;
+import com.ecommerce.domain.repository.CartItemRepository;
+
+@Service
+@Transactional
+public class CartItemService {
+
+	@Autowired 
+	private CartItemRepository cartItemRepository;
+	
+	@SuppressWarnings("null")
+	public List<CartItemDTO> getListCartByCusId(Integer cusID){
+		List<CartItem> cartItems = cartItemRepository.getListCartByCustomerId(cusID);
+		List<CartItemDTO> cartItemDTOs = new ArrayList<CartItemDTO>();
+		for(CartItem item : cartItems) {
+//			cartItemDTOs.add(new CartItemDTO(item.getProduct().getId(),item.getProduct().getName(),item.getProduct().getMainImagePath(),item.getProduct().getAlias(),item.getProduct().getPrice(),item.getProduct().getDiscountPercent(),item.getProduct().getDiscountPrice(),item.getQuantity()));
+		}
+		return cartItemDTOs;
+	}
+	
+	public Integer addProduct(Integer productId,Integer quantity,Customer customer) {
+		Integer updateQuantity = quantity;
+		Product product = new Product(productId);
+		CartItem cartItem = cartItemRepository.findByCustomerAndProduct(customer, product);
+		 if(cartItem != null) {
+			 updateQuantity = cartItem.getQuantity() + quantity;
+			 cartItem.setQuantity(updateQuantity);
+		 }else {
+			 cartItem = new CartItem();
+			 cartItem.setCustomer(customer);
+			 cartItem.setProduct(product);
+		 }
+		 cartItem.setQuantity(updateQuantity);
+		 cartItemRepository.save(cartItem);
+		 
+		 return updateQuantity;
+	}
+	
+	public void deleteProduct(Integer productId, Customer customer) {
+		Product product = new Product(productId);
+		CartItem cartItem = cartItemRepository.findByCustomerAndProduct(customer, product);
+		cartItemRepository.delete(cartItem);
+	}
+
+	public void updateProduct(Integer productId, Integer quantity, Customer customer) {
+		cartItemRepository.updateQuantity(quantity, customer.getId(), productId);
+	}
+
+	public void deleteAllByCus(Customer customer) {
+		cartItemRepository.deleteByCusId(customer.getId());
+	}
+}

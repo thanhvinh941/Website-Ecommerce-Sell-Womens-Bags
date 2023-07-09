@@ -8,10 +8,10 @@
 		<version>2.6.6</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.nhom2</groupId>
-	<artifactId>WWWNhom2Common</artifactId>
+	<groupId>com.ecommerce</groupId>
+	<artifactId>EntityCommon</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>WWWNhom2Common</name>
+	<name>EntityCommon</name>
 	<description>common lib</description>
 	<properties>
 		<java.version>11</java.version>

@@ -3,12 +3,12 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>com.nhom2</groupId>
-		<artifactId>WWWNhom2WebParent</artifactId>
+		<groupId>com.ecommerce</groupId>
+		<artifactId>WebParent</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>WWWNhom2BackEnd</artifactId>
-	<name>WWWNhom2BackEnd</name>
+	<artifactId>BackEnd</artifactId>
+	<name>BackEnd</name>
 	<description>WebParent</description>
 	<properties>
 		<java.version>11</java.version>

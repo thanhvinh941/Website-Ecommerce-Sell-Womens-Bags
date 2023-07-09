@@ -8,18 +8,18 @@
 		<version>2.6.6</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.nhom2</groupId>
-	<artifactId>WWWNhom2WebParent</artifactId>
+	<groupId>com.ecommerce</groupId>
+	<artifactId>WebParent</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	<name>WWWNhom2WebParent</name>
+	<name>WebParent</name>
 	<description>WebParent</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>
 	<modules>
-		<module>WWWNhom2BackEnd</module>
-		<module>WWWNhom2FontEnd</module>
+		<module>BackEnd</module>
+		<module>FrontEnd</module>
 	</modules>
 	<dependencies>
 		<dependency>
@@ -53,6 +53,11 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
+	      <groupId>org.mybatis.spring.boot</groupId>
+	      <artifactId>mybatis-spring-boot-starter</artifactId>
+	      <version>2.3.1</version>
+	    </dependency>
+		<dependency>
 			<groupId>org.webjars</groupId>
 			<artifactId>bootstrap</artifactId>
 			<version>4.3.1</version>
@@ -67,9 +72,31 @@
 			<artifactId>webjars-locator-core</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.nhom2</groupId>
-			<artifactId>WWWNhom2Common</artifactId>
+			<groupId>com.ecommerce</groupId>
+			<artifactId>EntityCommon</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		<dependency>
+	      <groupId>org.projectlombok</groupId>
+	      <artifactId>lombok</artifactId>
+	      <optional>true</optional>
+	    </dependency>
 	</dependencies>
+	
+	<build>
+	    <plugins>
+	      <plugin>
+	        <groupId>org.springframework.boot</groupId>
+	        <artifactId>spring-boot-maven-plugin</artifactId>
+	        <configuration>
+	          <excludes>
+	            <exclude>
+	              <groupId>org.projectlombok</groupId>
+	              <artifactId>lombok</artifactId>
+	            </exclude>
+	          </excludes>
+	        </configuration>
+	      </plugin>
+	    </plugins>
+	  </build>
 </project>

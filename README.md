@@ -2,7 +2,7 @@
 ## PROJECT
 ### *Descriptions :* 
 Website Ecommerce Introduce And Sell Womens Bags
-### *Number of members :* 1
+### *Number of members :* 3
 ### *Position :* 
 Product Owner, BA, Developer, Tester
 ### *Responsibilities :* 
